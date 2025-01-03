@@ -33,7 +33,7 @@ terminal        MAS, MENOS, MULT, DIVID, ASIGNA;
 terminal        MENOR, MENORIG, IGUAL, DIST, MAYOR, MAYORIG;
 terminal        AND, OR, NOT, DIFERENTE, YLOG, OLOG;
 terminal        ADMIR, MENOSUNARIO, MASMAS, MENOSMENOS;
-terminal        PORCENT, VIRGU;
+terminal        PORCENT, VIRGU, CAST;
 
 /*No terminales */
 //faltan mas //PRIMERA CLASE PRIMERA VERSION JUEVES 5
@@ -47,27 +47,25 @@ non terminal        Literal;
 //SEGUNDA VERSIÓN MARTES 10
 non terminal Bloque         Lista_de_sent; 
 non terminal ListaVar       List_declar_var; //Inicio_forc, cierre_forc...todos los de arrays
-non terminal Instruccion    Sentencia;
-non terminal Instruccion    Expresion;
-non terminal                Paso, Var_for, Array, Lista_exp, Direccion_for, Else_if;
+non terminal Instruccion    Sentencia, Expresion, Inicio_forc, Cond_forc, Act_forc;
+non terminal                Paso, Var_for, Array, Lista_exp, Direccion_for;
 non terminal Integer        Inicio_bloque;
-non terminal String         OperadorB, OperadorU, OperadorL; // OperadorA, Operadorm, OperadorR, Operador  
+non terminal String         OperadorB, OperadorU, OperadorA, OperadorM, OperadorPost;
 non terminal Tipo           ExpTipo;
 non terminal Literal        Literal;
 
-/*precedence*/ //precedencia entera hecha foto por carlos jueves 12 dic
+/*precedence*/ //todo bien precedence
+precedence left     ELSE;
 precedence left     COMA;
 precedence right    ASIGNA;
 precedence left     OLOG;
 precedence left     YLOG;
 precedence nonassoc ADMIR; //(exclamacion de not) //el lo pone debajo de mult divid porcent y con left
-precedence left     IGUAL, DIFERENTE;
-precedence left     MAYOR, MENOR, MAYORIG, MENORIG;
+precedence left     IGUAL, DIFERENTE, MAYOR, MENOR, MAYORIG, MENORIG;
 precedence left     MAS, MENOS;
-precedence left     MULT, DIV; //, PORCENT
-precedence left     MASMAS, MENOSMENOS; //left
+precedence left     MULT, DIVID, PORCENT; //left
 precedence nonassoc CAST; //el no pone cast
-precedence nonassoc MENOSUNARIO; //left
+precedence nonassoc MENOSUNARIO, MASMAS, MENOSMENOS; //left
 
 
 /*gramatica */ //el tiene otra nueva que ha  cvcambiado
@@ -180,9 +178,16 @@ ExpTipo ::= INT     {RESULT = TipoInt.instancia;}
 
 Expresion ::= Literal:l {: RESULT = new ExpLiteral(PLXC.lex.getline, l):}
 
-            |IDENT:i    {: Objeto o = tabla.buscarObjeto(i); if ((o == null)||!(o instanceof Variable)){ throw new ParseException("Variable no definida", PLXC.lex.getline)} RESULT = new ExpVariable(PLXC.lex.getline(), (Variable) o):}
+            |IDENT:i    {: Objeto o = tabla.buscarObjeto(i); if ((o == null)||!(o instanceof Variable)){ throw new ParseException("Variable ("+i+") no definida", PLXC.lex.getline)} RESULT = new ExpVariable(PLXC.lex.getline(), (Variable) o):}
 
-            exp  ASIGNA exp
+            |Expresion:e1 ASIGNA Expresion:e2
+                (:
+                RESULT=new LlamadaMetodo(PLXC.lex.getLine(),
+                                        e1,
+                                        Metodos.ASIGNA,
+                                        new Instancia new Instruccion[]{e2});
+                
+                :)
 
             |Expresion:e1 OperadorB Expresion:e2 {: RESULT = new LlamadaMetodo(PLXC.lex.getLine(), e1, o, new Instruccion[]{e2});:}
 
@@ -223,14 +228,6 @@ OperadorL ::= YLOG       {: RESULT= Metodos.YLOG; :}
             | OLOG       {: RESULT= Metodos.OLOG; :}
             ;
 
-//MAL COPIADO DESDE EL MENOS MENOS
-OperadorU ::= MASMAS        {: RESULT= Metodos.MASMAS; :}
-            |MENOSMENOS      {: RESULT= Metodos.MENOSMENOS; :}
-            |VIRGU              {: RESULT= Metodos.VIRGU; :}
-            |ADMIR      {: RESULT= Metodos.NOT; :}
-            |MENOSUNARIO{: RESULT= Metodos.MENOSUNARIO; :}
-            ;
-
 Literal ::= ENTERO:e {:RESULT = new Literal (bloqueActual, TipoInt.Instancia, e):}
         | CARACTER:c 
         | REAL:r //no estoy seguro de que sea asi
@@ -248,15 +245,18 @@ OperasdorR igual diferente menor menorIG mayor mayorig
 OperadorA ::= MAS {:RESULT= Metodos.SUMA; :}
             |MENOS {:RESULT= Metodos.RESTA:} 
 
-OperadorM::= MULT {:RESULT= Metodos.SUMA; :}
-            |DIVID {:RESULT= Metodos.RESTA:} 
-            |PORCENT
+OperadorM::= MULT {:RESULT= Metodos.MULT; :}
+            |DIVID {:RESULT= Metodos.DIVID:} 
+            |PORCENT {:RESULT= Metodos.RESTO:}
+            ;
+Operador U::= MASMAS {:RESULT= Metodos.SIGUIENTE; :}
+            |MENOSMENOS {:RESULT= Metodos.ANTERIOR:} 
+            |VIRGU
+            | MENOS {:RESULT= Metodos.OPUESTO:}
             ;
 
-            //los tienencxarlos
-Operador U
-
-Operador <Post 
+OperadorUPost::= MASMAS {:RESULT=Metodos.SIGUIENTE;:}
+//faltan
 
 
 

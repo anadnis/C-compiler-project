@@ -23,4 +23,4 @@ public final class Metodos {
     public static final String PONERETIQ = "$poneretiq";
     public static final String SALTARETIQ = "$saltaretiq";
     public static final String IMPRIMIR = "$print";
-} //Carlos tiene foto 17 diciembre
+} //esta todo 
