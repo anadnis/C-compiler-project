@@ -105,9 +105,24 @@ Sentencia ::=   List_declar_var:l PCOMA {:RESULT = l;:}
 Inicio_bloque ::=   {: 
                         RESULT = bloqueActual; //
                         cBloque++;
-                        bloqueActual = cBloque;
+                        //bloqueActual = cBloque;
                     :}
                 ;
+
+/*aqui hay 3 metodos para gestionar la lista de variables y expresiones, no se ve del todo: */
+
+::= List_declar_var:l {:RESULT= /*algo*/:}
+    |Expresion:e      {:RESULT= /*algo*/:}
+    |                 {:RESULT= /*algo*/:}
+    ;
+
+::= |Expresion:e      {:RESULT= /*algo*/:}
+    |                 {:RESULT= /*algo*/:}
+    ;
+
+::= |Expresion:e      {:RESULT= /*algo*/:}
+    |                 {:RESULT= /*algo*/:}
+    ;
 
 /*                     
 //para pascal las reglas de:  var_for Paso y el Direcciones_for 
