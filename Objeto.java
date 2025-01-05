@@ -34,7 +34,7 @@ public abstract class Objeto implements Comparable<Objeto> {
     public String getIDC(){   //sirve para cuando tengamos una variable que se llama igual pero en dos bloques distintos, para no cargarnos la primera.
         return nombre + "$" + Integer.toString(bloque);
     }
-
+    
     public abstract Objeto generarCodigoMetodo(String metodo, Objeto[] param) throws Exception;
     
     public int compareTo(Objeto o) {

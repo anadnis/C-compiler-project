@@ -156,7 +156,7 @@ public class TipoInt extends Tipo{  //una única instancia de objeto entero en t
 //clase TOCHa son como 180 lineas de codigo . un mega case switch y carlos tiene dos fotos. martes 10 dic
 
 
-    /
+    
     @Override
     public Objeto generarCodigoMetodo(String metodo, Objeto[] param, int linea) throws Exception{
         return null;
