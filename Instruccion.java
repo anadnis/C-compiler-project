@@ -1,4 +1,4 @@
-public abstract class Intruccion{
+public abstract class Instruccion{
     private int linea;
 
     Instruccion (int linea){
