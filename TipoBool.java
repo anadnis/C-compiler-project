@@ -12,6 +12,8 @@ public class TipoBool extends Tipo{
        Instancia par;
        Variable v;
        String et1;
+       Etiqueta et;
+       
         swich(metodo){
             case Metodos.IMPRIMIR:
             PLXC.out.println("print "+Instancia.getIDC()+";");
@@ -181,7 +183,7 @@ public class TipoBool extends Tipo{
 
         case Metodos.YLOG:
         case Metodos.OLOG:
-        if((param==null) || (param.length!=1) || algo  ){
+        if((param==null) || (param.length!=1) || (!(param[0] /*algo */))  ){
             throw new ParseException("La operacion "+metodo+ "necesita una etiqueta como parametro",linea);
         }
         et=(Etiqueta) param[0];
@@ -200,7 +202,7 @@ public class TipoBool extends Tipo{
         return v;
 
         default:
-        throw new ParseException("Operacion ("+metodo /*algo */);    
+        throw new ParseException("Operacion ("+metodo+"... no implementada para el tipo "+getNombre(),linea);    
         }
         
         return null;

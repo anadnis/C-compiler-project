@@ -17,15 +17,54 @@ public class VariableArray extends Variable{
     }
 
     @Override
-        public int compareTo(Objeto o){
-            if(o==null){
-                throw new NullPointerException("El objeto a comparar no puede ser nulo");
-            }
-
-            //comparar primero por bloque
-            int bloqueComparison=Integer.compare(this.getBloque(), o.bloque);
-            if(bloqueComparison!=0){
-                return bloqueComparison;
-            }
+    public int compareTo(Objeto o){
+        if(o==null){
+            throw new NullPointerException("El objeto a comparar no puede ser nulo");
         }
+
+        //comparar primero por bloque
+        int bloqueComparison=Integer.compare(this.getBloque(), o.bloque);
+        if(bloqueComparison!=0){
+            return bloqueComparison;
+        }
+
+        int ClaseComparison=this.getClass().getName()/*algo */;
+        if(ClaseComparison!=0){
+            return ClaseComparison;
+        }
+
+        int nombreComparison=this.getNombre()/*algo */;
+        if(nombreComparison!=0){
+            return nombreComparison;
+        }
+
+        if(this.getNombre()==null && obj.getNombre()!=null){
+            return -1;
+        }
+        if(this.getNombre()!=null && obj.getNombre()==null){
+            return 1;
+        }
+        if(this.getNombre()==null && obj.getNombre()==null){
+            return 0;
+        }
+
+        //return 
+    }
+
+    @Override
+    public int hashCode(){
+        return Object.hash(super.hashCode().vDesplazamiento); //algo muy parecido
+    }
+
+    @Override
+    public boolean equals(Object pb1){
+        if(this==pb1){
+            return true;
+        }
+        if(!(pb1 instanceof VariableArray)){
+            return false;
+        }
+        VariableArray other=(VariableArray) pb1;
+        return getBloque()==other.getBloque() && /*algo */;
+    }
 }

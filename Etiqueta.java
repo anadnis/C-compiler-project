@@ -1,13 +1,11 @@
 import java.text.ParseException;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 public class Etiqueta extends Objeto{
-    private boolean puesta;
+    private boolean usada;
 
-    public Etiqueta (String nombre , int bloque){
-        super(nombre,bloque,false);
-        puesta = false;
+    public Etiqueta(String nombre, int bloque) {
+        super(nombre, bloque, false);
+        usada = false;
     }
 
     @Override
@@ -16,21 +14,21 @@ public class Etiqueta extends Objeto{
     }
 
     @Override
-    public Objeto generarCodigoMetodo (String metodo, Objecto[] param, /*int algo mas*/ ){
-        switch(metodo){
-            case Metodos.PONERETIQ:
-            if(puesta){
-                throw new ParseException("las etiquetas solo se pueden ...");
-            }
-            puesta=true;
-            PLXC.out.println(getIDC() + " ");
-            break;
-            case Metodos.SALTARETIQ:
-            PLXC.out.println("goto "+getIDC()+ ";");
-            break;
+    public Objeto generarCodigoMetodo(String metodo, Objeto[] params, int linea) throws Exception {
+        switch(metodo) {
+            case Metodos.PONER_ETQ:
+                if(usada) {
+                    throw new ParseException("Etiqueta <" + getNombre() + "> ya usada", linea);
+                }
+                PLXC.out.println(getNombre() + ": ");
+                break;
+            case Metodos.SALTAR_ETQ:
+                PLXC.out.println("goto " + getNombre() + ";");
+                break;
             default:
-            throw new ParserConfigurationException("Metodo "+metodo+"...");
+                throw new UnsupportedOperationException(metodo + " no es un método válido para etiquetas");
         }
+
         return null;
     }
 

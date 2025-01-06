@@ -85,17 +85,24 @@ Lista_de_sent ::= Sentencia:s
 
 Sentencia ::=   List_declar_var:l PCOMA {:RESULT = l;:}
                 | Expresion:e PCOMA     {:RESULT = e;:}
-                | IF AP Expresion:c CP Sentencia 
-                    Else_if
-                | WHILE AP Expresion:c CP Sentencia
-                | DO Sentencia WHILE AP Expresion:c CP PCOMA
-                | FOR AP Expresion PCOMA Expresion PCOMA Expresion CP Sentencia
+                | IF AP Expresion:c CP Sentencia:sT {:RESULT = new SentIF(PLXC.lex.getLine(),c,sT,null);:}
+                | IF AP Expresion:c CP Sentencia:sT ELSE Sentencia:sF{:RESULT = new SentIF(PLXC.lex.getLine(),c,sT,sF);:}
+                | WHILE AP Expresion:c CP Sentencia:s {:RESULT = new SentWHILE(PLXC.lex.getLine(),c,s);:}
+                | DO Sentencia:s WHILE AP Expresion:c CP PCOMA {:RESULT = new SentDOWHILE(PLXC.lex.getLine(),c,s);:}
+                | FOR Inicio_bloque AP Inicio_forc:i PCOMA Cond_forc:c PCOMA //falta algo Act_forc CP Sentencia
+                {:
+                    bloqueActual=b;
+                    RESULT = new SentFORC(PLXC.lex.getLine(),i,c,a,s);
+                :}
                 | PRINT AP Expresion:e CP PCOMA //habra que ver si llevarnoslo a  expresion y return void
-                | A_LLAVE Inicio_bloque:ba Lista_de_sent C_LLAVE 
+                {:RESULT = new LlamadaMetodo(PLXC.lex.getLine(),e, //algo);:}
+                | A_LLAVE Inicio_bloque:b Lista_de_sent:l C_LLAVE 
                     {: 
                         //hay que eliminar las variables de ese bloque, de la tabla, y volver al bloque anterior
-                        tabla.eliminarBloque(bloqueActual);
-                        bloqueActual = ba; //con esto vuelvo al bloque anterior
+                        bloqueActual = b; //con esto vuelvo al bloque anterior
+                        //tabla.eliminarBloque(bloqueActual);
+                        RESULT=l;
+                        
                     :}
                 |A_LLAVE C_LLAVE 
 // Es la inst de no hacer nada, habra q devolver algo q no sea null
@@ -109,24 +116,23 @@ Inicio_bloque ::=   {:
                     :}
                 ;
 
-/*aqui hay 3 metodos para gestionar la lista de variables y expresiones, no se ve del todo: */
-
-::= List_declar_var:l {:RESULT= /*algo*/:}
-    |Expresion:e      {:RESULT= /*algo*/:}
-    |                 {:RESULT= /*algo*/:}
-    ;
-
-::= |Expresion:e      {:RESULT= /*algo*/:}
-    |                 {:RESULT= /*algo*/:}
-    ;
-
-::= |Expresion:e      {:RESULT= /*algo*/:}
-    |                 {:RESULT= /*algo*/:}
-    ;
 
 /*                     
 //para pascal las reglas de:  var_for Paso y el Direcciones_for 
-               ;
+
+Inicio_forc ::=  List_declar_var:l (:RESULT=l;:)
+            | Expresion:e           (:RESULT=e;:)
+            |                       (:RESULT=null;:)
+            ;
+
+Cond_forc ::=  Expresion:e           (:RESULT=e;:)
+            |                       (:RESULT=null;:)
+            ;
+
+Act_forc ::=  Expresion:e           (:RESULT=e;:)
+            |                       (:RESULT=null;:)
+            ;
+               
 Var_for ::=  IDENT:i
             ;
 

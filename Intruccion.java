@@ -1,7 +1,7 @@
-public abstract clas Intruccion{
+public abstract class Intruccion{
     private int linea;
 
-    Instruccion(int linea){
+    Instruccion (int linea){
         this.linea = linea;
     }
 

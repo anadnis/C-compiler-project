@@ -19,7 +19,7 @@ public Objeto generarCodigo() throws Exception{
     Instancia iCond=(Instancia) c;
 
     if(iCond.getTipo() != TipoBool.Instancia){
-        iCond=(Instancia) iCond.generarCodigoMetodo(/*algo */);
+        iCond=(Instancia) iCond.generarCodigoMetodo(Metodos.CAST/*algo */);
     }
 
     PLXC.out.println("if ("+iCond.getIDC()+ " == 0) goto" /*algo */);

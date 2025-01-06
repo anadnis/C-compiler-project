@@ -83,19 +83,19 @@ public class TipoArray extends Tipo{
             etiqC=newEtiq();
             etiqF=newEtiq();
             if(this.getTipoBase() instanceof TipoArray){
-                aDes=new VariableArray(va.getNombre(), vInd/*algo */);
+                aDes=new VariableArray(va.getNombre(), vInd, va.getBloque()/*algo */);
             }else{
-                aDes=new VariableArray(va.getNombre(),vInd/*añgo */, new TipoEArray(/*algo */));
+                aDes=new VariableArray(va.getNombre(),vInd,va.getBloque()/*añgo */, new TipoEArray(newNomObj(),/*algo */));
             }
-            PLXC.out.println(vInd+" = "+va.getvDesplac/*algo */);
+            PLXC.out.println(vIndD+" = "+va.getvDesplazamiento()/*algo */);
             PLXC.out.println(vCont+ " =0;");
             PLXC.out.println(etiqC+";");
-            PLXC.out.println("if ("+vCont+" == "+/*algo */);
-            PLXC.out.println("if ("+this.getSize()+/*algo */);
-            aDes.generarCodigoMetodo(metodo, new Objeto() /*algo */  );
+            PLXC.out.println("if ("+vCont+" == "+this/*algo */);
+            PLXC.out.println("if ("+this.getSize()+" < "/*algo */);
+            aDes.generarCodigoMetodo(metodo, null, linea);
             vSizeD=(Variable) aDES.getTipo().generarCodigoMetodo /*algo */  ;
-            PLXC.out.println(vInd+ " = "+ vInd+/*algo */);
-            PLXC.out.println(vCont+ " = "+ vCont+/*algo */);            
+            PLXC.out.println(vIndD+ " = "+ vIndD+" + "+vSizeD/*algo */);
+            PLXC.out.println(vCont+ " = "+ vCont+"algo ;"/);            
             PLXC.out.println("goto "+etiqC+";");
         }
     }

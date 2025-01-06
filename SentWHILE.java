@@ -1,10 +1,11 @@
+import java.lang.classfile.Instruction;
 import java.text.ParseException;
 
-public class SentWHILE extends /*algo */{
-    /*mismo algo */ cond, cuerpo;
+public class SentWHILE extends Instruction{
+    Instruction cond, cuerpo;
 
-    private SentWHILE(/*algo */linea, /*mismo algo */ cond,/*algo */ cuerpo){
-        /*algo */(linea);
+    private SentWHILE(/*algo */linea, Instruction cond,/*algo */ cuerpo){
+        super(linea);
         this.cond=cond;
         this.cuerpo=cuerpo;
     }
