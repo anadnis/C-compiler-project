@@ -1,10 +1,9 @@
-import java.lang.classfile.Instruction;
 import java.text.ParseException;
 
-public class SentWHILE extends Instruction{
-    Instruction cond, cuerpo;
+public class SentWHILE extends Instruccion{
+    Instruccion cond, cuerpo;
 
-    private SentWHILE(/*algo */linea, Instruction cond,/*algo */ cuerpo){
+    private SentWHILE(int linea, Instruccion cond, Instruccion cuerpo){
         super(linea);
         this.cond=cond;
         this.cuerpo=cuerpo;
@@ -15,23 +14,25 @@ public class SentWHILE extends Instruction{
         String etWhile=Objeto.newEtiq();
         String etFinal=Objeto.newEtiq();
 
-        PLXC.out.println(etWhile+";");
+        PLXC.out.println(etWhile+":");
         Objeto c=cond.generarCodigo();
         if(!(c instanceof Instancia)){
-            throw new ParseException("La condicion de un while debe ser ...");
+            throw new ParseException("La expresión del while debe ser una instancia (literal o variable)", getLinea());
         }
 
         Instancia iCond=(Instancia) c;
 
-        if(iCond.getTipo() != TipoBool.Instancia){
-            iCond=(Instancia) iCond.generarCodigoMetodo(/*algo */);
+        if(iCond.getTipo() != TipoBool.instancia){
+            iCond=(Instancia) iCond.generarCodigoMetodo(Metodos.CAST, new Objeto[]{TipoBool.instancia}, getLinea());
         }
     
-        PLXC.out.println("if ("+iCond.getIDC()+ " == 0) goto"+etWhile);
+        PLXC.out.println("if ("+iCond.getIDC()+ " == 0) goto"+etFinal); //no se si es etWhile o etFinal
         cuerpo.generarCodigo();
         
         PLXC.out.println("goto "+etWhile+";");
         PLXC.out.println(etFinal+" ");
+
+        return null;
     }
 }
 

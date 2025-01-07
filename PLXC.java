@@ -1,30 +1,44 @@
-//faltan cosas
+import java.io.FileReader;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.text.ParseException;
 
-try{
-    Reader in =new InputStreamReader(System.in);
-    out=System.out;
-    if(argv.length>0){
-        in=new FileReader(argv [0]);
-    }
-    if(argv.length>1){
-        out=new PrintStream (new FileOutputStream)(argv[1]);
-    }
-    lex=new Yylex(in);
-    //faltan dos lineas que no se ven en la foto
-    result.generarCodigo();
-}catch(ParseException e){
-    System.err.println("Error: "+e.getMessage());
-    System.err.println("Linea entrada: "+e.getErrorOffset());
-    e.printStackTrace();
+public class PLXC {
+	public static PrintStream out;
+	public static Yylex lex;
 
-    out.println("error analisis");
-    out.println("error");
-    out.println("halt");
-}catch(Exception e){
-    System.err.println("Error: "+e.getMessage());
-    e.printStackTrace();
-    //falta mas
+	public static void main(String argv[]) {
+		try {
+			Reader in = new InputStreamReader(System.in);	
+			out = System.out;
+			if (argv.length>0) {
+				in = new FileReader(argv[0]);
+			}
+			if (argv.length>1) {
+				out = new PrintStream(new FileOutputStream(argv[1]));
+			}
+			lex = new Yylex(in);
+			parser p = new parser(lex);
+			Instruccion i = (Instruccion) p.parse().value;
+			i.generarCodigo();
+		} catch (ParseException e) {
+			// Errores en el código a compilar
+			PLXC.out.println("error analisis");
+			PLXC.out.println("error");
+			PLXC.out.println("halt");
+
+			System.err.println("Error: " + e.getMessage());
+			System.err.println("Linea: " + e.getErrorOffset());
+            e.printStackTrace();
+			System.exit(-1);
+		} catch (Exception e) {
+			// Errores internos
+			System.err.println(e.getMessage());
+            e.printStackTrace();
+			System.exit(-1);
+		}
+	}
 }
 
-//Instruccion result = () p.parse(Instruccion).value;
-result.generarCodif//lo tine carlos

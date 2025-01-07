@@ -2,7 +2,7 @@ public class Literal extends Instancia {
 	private Object valor;
 	
 	public Literal (int bloque, Tipo tipo, Object valor) {
-		super(newNombObj(), bloque, false, tipo);
+		super(newNomObj(), bloque, false, tipo);
 		this.valor = valor;
 	}
 	

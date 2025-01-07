@@ -1,11 +1,10 @@
-import java.util.Vector;
 
 public class LlamadaMetodo extends Instruccion {
 
     private Instruccion e1, param[];
     private String metodo;
 
-    public LlamadaMetodo(int linea, Instruccion e1, String metodo, Instruccion param[]) {
+    public LlamadaMetodo(int linea, Instruccion e1, String metodo, Instruccion[] param) {
         super(linea);
         this.e1 = e1;
         this.metodo = metodo;
@@ -13,7 +12,6 @@ public class LlamadaMetodo extends Instruccion {
 
     }
 
-    
     @Override
     public Objeto generarCodigo() throws Exception{
         Objeto oParam[] = null;
@@ -21,9 +19,9 @@ public class LlamadaMetodo extends Instruccion {
         Objeto o1=e1.generarCodigo();
     
         if(param!=null){
-            oParam=new Objeto[param.lenght];
+            oParam=new Objeto[param.length];
     
-            for(int k=0;k<param.lenght;k++){
+            for(int k=0;k<param.length;k++){
                 oParam[k]=param[k].generarCodigo(); 
             }
         }

@@ -9,5 +9,5 @@ public abstract class Tipo extends Objeto {
     public Tipo(String nombre,int bloque, boolean mutable){
         super(nombre, bloque, mutable);
     }
-    public abstract ObjetogenerarCodigoInstancia (Instancia instancia, String metodo, Objeto[] param) throws Exception;
+    public abstract Objeto generarCodigoInstancia (Instancia instancia, String metodo, Objeto[] param,int linea) throws Exception;
 }

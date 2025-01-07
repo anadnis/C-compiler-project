@@ -6,12 +6,19 @@ public abstract class Objeto implements Comparable<Objeto> {
     private boolean mutable;
 
     private static int numObj = 0;
+    private static int numEtq = 0;
 
     public static String newNomObj() {
         String n = new String("$t"+Integer.toString(numObj));
         numObj++;
         return n;
     }
+
+    public static String newEtiq() {
+		String etq = "L" + numEtq;
+		numEtq++;
+		return etq;
+	}
 
     public Objeto (String nombre, int bloque, boolean mutable){
         this.nombre=nombre;
@@ -35,8 +42,9 @@ public abstract class Objeto implements Comparable<Objeto> {
         return nombre + "$" + Integer.toString(bloque);
     }
     
-    public abstract Objeto generarCodigoMetodo(String metodo, Objeto[] param) throws Exception;
+    public abstract Objeto generarCodigoMetodo(String metodo, Objeto[] param, int linea) throws Exception;
     
+    @Override
     public int compareTo(Objeto o) {
         if(o == null) {
             throw new NullPointerException("El objeto a comparar no puede ser nulo");
@@ -47,10 +55,25 @@ public abstract class Objeto implements Comparable<Objeto> {
         if(bloqueComparison!=0){
         return bloqueComparison;
         }
-        //return
+        return this.nombre.compareTo(o.nombre);
     }
 
-    //y falta el hascode y el equals
+    @Override
+    public boolean equals(Object obj) {
+        boolean eq = (obj instanceof Objeto);
+        if(eq) {
+            Objeto o = (Objeto) obj;
+
+            eq = this.nombre.equals(o.nombre) && this.bloque == o.bloque;
+        }
+
+        return eq;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, bloque);
+    }
 
 }
 

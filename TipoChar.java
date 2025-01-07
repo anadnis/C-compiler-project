@@ -12,7 +12,7 @@ public class TipoChar extends Tipo{
     }
 
     @Override
-    public Objeto generarCodigoMetodo (String metodo, Objeto[] param) throws Exception{
+    public Objeto generarCodigoMetodo (String metodo, Objeto[] param,int linea ) throws Exception{
         return null;
     }
 }

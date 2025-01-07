@@ -1,6 +1,3 @@
-//esto es para manejar el cortocircuito en expresiones lógicas
-//si la primera expresión es falsa, no se evalua la segunda, nos sirve para añadir muchas cosas como ?
-import java.util.Vector;
 
 public class CortoCircuito extends Instruccion {
     private Instruccion a, b;
@@ -17,7 +14,7 @@ public class CortoCircuito extends Instruccion {
     public Objeto generarCodigo() throws Exception {
         Objeto objA = a.generarCodigo(); // -> $t0
 
-        Etiqueta etq = new Etiqueta(Objeto.newEtiqueta(), objA.getBloque());
+        Etiqueta etq = new Etiqueta(Objeto.newEtiq(), objA.getBloque());
 
         Objeto result = objA.generarCodigoMetodo(metodo, new Objeto[]{etq}, getLinea()); // ($t1 = $t0; if($t0 == 0) goto L) -> $t1
 
@@ -25,7 +22,7 @@ public class CortoCircuito extends Instruccion {
 
         result.generarCodigoMetodo(Metodos.CREAR_VARIABLE, new Objeto[]{objB}, getLinea()); // $t1 = $t2
 
-        etq.generarCodigoMetodo(Metodos.PONER_ETQ, null, getLinea()); // L: ...
+        etq.generarCodigoMetodo(Metodos.PONERETIQ, null, getLinea()); // L: ...
 
         return result;
     }

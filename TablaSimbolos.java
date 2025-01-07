@@ -8,22 +8,17 @@ public class TablaSimbolos {
     private Map<Integer, Map<String, Objeto>> tabla;
 
     public TablaSimbolos() {
-        tabla = new HashMap<>();
+        this.tabla = new HashMap<>();
     }
 
-    public void insertarObjeto(Objeto obj) {
-        Integer bloque = Integer.valueOf(obj.getBloque());
-        Map<String, Objeto> subtabla = tabla.get(bloque);
-        if(subtabla == null) {
-            Map<String, Objeto> st = new HashMap<>();
-            st.put(obj.getNombre(), obj);
-            tabla.put(bloque, st);
-        } else {
-            subtabla.put(obj.getNombre(), obj);
+    public void añadirObjeto(Objeto objeto){
+        if(objeto==null || objeto.getNombre()==null){
+            throw new IllegalArgumentException("Objeto y nombre no pueden ser null");
         }
+        tabla.computeIfAbsent(objeto.getBloque(),k->new HashMap<>()).put(objeto.getNombre(),objeto);
     }
-
-    public Objeto buscar(String nombre) {
+    
+    public Objeto buscarObjeto(String nombre) {
         int mayor = 0;
         Objeto obj = null;
         for(var entry : tabla.entrySet()) {
@@ -36,19 +31,19 @@ public class TablaSimbolos {
         return obj;
     }
 
-    public void eliminarBloque(int bloque) {
+    public void borrarBloque (int bloque) {
         tabla.remove(bloque);
     }
 
-    public Variable declararVariable(int linea, String nombre, Integer bloque, boolean mutable, Tipo tipo) throws Exception {
-        Objeto obj = buscar(nombre);
+    public Variable declararVariable(int linea, String nombre, int bloque, boolean mutable, Tipo tipo) throws Exception {
+        Objeto obj = buscarObjeto(nombre);
 
         if(obj != null && obj.getBloque() == bloque) {
             throw new ParseException("Variable <" + nombre + "> ya declarada en el mismo bloque", linea);
         }
 
         Variable v = new Variable(nombre, bloque, mutable, tipo);
-        insertarObjeto(v);
+        añadirObjeto(v);
 
         return v;
     }
@@ -59,7 +54,7 @@ public class TablaSimbolos {
     }
 }
 /*LO QUE TENIAMOS NOSOTROS:
-import java.util.*;
+
 //MUY REGULERA COMPLETAR CON CHATGPT
 public class TablaSimbolos {
 
@@ -104,17 +99,7 @@ public class TablaSimbolos {
     } 
 
 //    cambiarlo para que busque por bloque mas alto
-   public Objeto buscarObjeto(String nombre){
-        if(nombre == null){
-            throw new IllegalArgumentException("El nombre no puede ser nulo");
-        }
-        for (Map<String, Objeto> subTabla : tabla.values()) {
-            if(subTabla.containsKey(nombre)){
-                return subTabla.get(nombre);
-            }
-        }
-        return null;
-   }
+ 
 
    //public Objeto buscarObjeto(String nombre){ //inicio de lo de arriba 
     //int mayorB = 0;

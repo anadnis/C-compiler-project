@@ -10,5 +10,4 @@ public abstract class Instruccion{
     }
 
     public abstract Objeto generarCodigo() throws Exception;
-
 }

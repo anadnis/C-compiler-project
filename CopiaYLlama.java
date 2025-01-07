@@ -19,7 +19,7 @@ public class CopiaYLlama extends Instruccion {
         Variable obj = (Variable) exp.generarCodigo();
 
         // La copiamos en otra
-        copia = new Variable(Objeto.newNombObj(), obj.getBloque(), obj.getMutable(), obj.getTipo());
+        copia = new Variable(Objeto.newNomObj(), obj.getBloque(), obj.getMutable(), obj.getTipo());
         copia.generarCodigoMetodo(Metodos.CREAR_VARIABLE, new Objeto[]{obj}, getLinea());
 
         if(params != null) {
