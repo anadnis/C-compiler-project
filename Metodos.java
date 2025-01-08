@@ -18,10 +18,10 @@ public final class Metodos {
     public static final String NLOG = "$nlog";
     public static final String CAST = "$cast";
     public static final String RESTO = "$resto";
-    public static final String CONSTRUCTOR = "$constructor"; //no sabemos si constructor y crear variable son lo mismo
-    public static final String CREAR_VARIABLE = "$crearvariable";
     public static final String CONSTLITERAL = "$constliteral"; 
     public static final String PONERETIQ = "$poneretiq";
     public static final String SALTARETIQ = "$saltaretiq";
     public static final String IMPRIMIR = "$print";
+    public static final String CONSTRUCTORCOPIA = "$constructorcopia";
+
 } //esta todo 

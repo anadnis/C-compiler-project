@@ -1,17 +1,17 @@
 public class TipoReal extends Tipo{  
-    public static final TipoChar instancia = new TipoReal();
+    public static final TipoReal instancia = new TipoReal();
 
     private TipoReal(){
         super(Predefinidos.REAL, 0, false);
     }
 
     @Override
-    public Objeto generarCodigoInstancia (Instancia instancia,String metodo, Objeto[] param) throws Exception{
+    public Objeto generarCodigoInstancia (Instancia instancia,String metodo, Objeto[] param,int linea) throws Exception{
         return null;
     }
 
     @Override
-    public Objeto generarCodigoMetodo (String metodo, Objeto[] param) throws Exception{
+    public Objeto generarCodigoMetodo (String metodo, Objeto[] param, int linea) throws Exception{
         return null;
     }
 }

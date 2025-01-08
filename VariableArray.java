@@ -1,3 +1,4 @@
+/* 
 import java.util.Objects;
 
 public class VariableArray extends Variable{
@@ -28,23 +29,23 @@ public class VariableArray extends Variable{
             return bloqueComparison;
         }
 
-        int ClaseComparison=this.getClass().getName()/*algo */;
+        int ClaseComparison=this.getClass().getName()algoo;
         if(ClaseComparison!=0){
             return ClaseComparison;
         }
 
-        int nombreComparison=this.getNombre()/*algo */;
+        int nombreComparison=this.getNombre()algoo;
         if(nombreComparison!=0){
             return nombreComparison;
         }
 
-        if(this.getNombre()==null && obj.getNombre()!=null){
+        if(this.getNombre()==null && o.getNombre()!=null){ 
             return -1;
         }
-        if(this.getNombre()!=null && obj.getNombre()==null){
+        if(this.getNombre()!=null && o.getNombre()==null){
             return 1;
         }
-        if(this.getNombre()==null && obj.getNombre()==null){
+        if(this.getNombre()==null && o.getNombre()==null){
             return 0;
         }
 
@@ -65,6 +66,7 @@ public class VariableArray extends Variable{
             return false;
         }
         VariableArray other=(VariableArray) pb1;
-        return getBloque()==other.getBloque() && /*algo */;
+        return getBloque()==other.getBloque()  algoo;
     }
 }
+    */

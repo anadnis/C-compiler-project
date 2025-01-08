@@ -6,7 +6,7 @@ public class TipoChar extends Tipo{
     }
 
     @Override
-    public Objeto generarCodigoInstancia (Instancia instancia,String metodo, Objeto[] param) throws Exception{
+    public Objeto generarCodigoInstancia (Instancia instancia,String metodo, Objeto[] param,int linea) throws Exception{
         //tambien switch enorme con CONSTLITERAL, CAST, etc pero no se ve un carajo, es muy parecido a los otros tipo
         return null;
     }

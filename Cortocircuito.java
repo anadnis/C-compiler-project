@@ -20,7 +20,7 @@ public class CortoCircuito extends Instruccion {
 
         Objeto objB = b.generarCodigo(); // -> $t2
 
-        result.generarCodigoMetodo(Metodos.CREAR_VARIABLE, new Objeto[]{objB}, getLinea()); // $t1 = $t2
+        result.generarCodigoMetodo(Metodos.CONSTRUCTORCOPIA, new Objeto[]{objB}, getLinea()); // $t1 = $t2
 
         etq.generarCodigoMetodo(Metodos.PONERETIQ, null, getLinea()); // L: ...
 

@@ -21,15 +21,21 @@ import java.text.ParseException;
 
 %%
 
+
 %unicode
 %cup
 %line
 %column
 
 %{
-    public int getLine() { return yyline; }
-    public int getColumn() { return yycolumn; }
+    public int getLine() { 
+        return yyline; 
+    }
+    public int getColumn() { 
+        return yycolumn; 
+    }
 %}
+
 
 ENTERO_DEC = 0|([1-9][0-9]*)
 ENTERO_OCT = 0[1-7][0-7]*
@@ -42,32 +48,34 @@ IDENT = [a-zA-Z]+[0-9]*
 
 %%
 
-"{" { return new Symbol(sym.ALL); }
-"}" { return new Symbol(sym.CLL); }
+"{" { return new Symbol(sym.A_LLAVE); }
+"}" { return new Symbol(sym.C_LLAVE); }
+"[" { return new Symbol(sym.AC); }
+"]" { return new Symbol(sym.CC); }
 "(" { return new Symbol(sym.AP); }
 ")" { return new Symbol(sym.CP); }
-";" { return new Symbol(sym.PYC); }
+";" { return new Symbol(sym.PCOMA); }
 "," { return new Symbol(sym.COMA); }
-"=" { return new Symbol(sym.ASIG); }
+"=" { return new Symbol(sym.ASIGNA); }
 
 "<"  { return new Symbol(sym.MENOR); }
-"<=" { return new Symbol(sym.MENORIGUAL); }
+"<=" { return new Symbol(sym.MENORIG); }
 ">"  { return new Symbol(sym.MAYOR); }
-">=" { return new Symbol(sym.MAYORIGUAL); }
+">=" { return new Symbol(sym.MAYORIG); }
 "==" { return new Symbol(sym.IGUAL); }
-"!=" { return new Symbol(sym.DIST); }
+"!=" { return new Symbol(sym.DIFERENTE); }
 
 "+"  { return new Symbol(sym.MAS); }
 "-"  { return new Symbol(sym.MENOS); }
 "*"  { return new Symbol(sym.MULT); }
-"/"  { return new Symbol(sym.DIV); }
-"%"  { return new Symbol(sym.MOD); }
+"/"  { return new Symbol(sym.DIVID); }
+"%"  { return new Symbol(sym.PORCENT); }
 "++" { return new Symbol(sym.MASMAS); }
 "--" { return new Symbol(sym.MENOSMENOS); }
 
-"&&"  { return new Symbol(sym.AND); }
-"||"  { return new Symbol(sym.OR); }
-"!"   { return new Symbol(sym.NOT); }
+"&&"  { return new Symbol(sym.YLOG); }
+"||"  { return new Symbol(sym.OLOG); }
+"!"   { return new Symbol(sym.ADMIR); }
 
 print  { return new Symbol(sym.PRINT); }
 do     { return new Symbol(sym.DO); }

@@ -20,7 +20,7 @@ public class CopiaYLlama extends Instruccion {
 
         // La copiamos en otra
         copia = new Variable(Objeto.newNomObj(), obj.getBloque(), obj.getMutable(), obj.getTipo());
-        copia.generarCodigoMetodo(Metodos.CREAR_VARIABLE, new Objeto[]{obj}, getLinea());
+        copia.generarCodigoMetodo(Metodos.CONSTRUCTORCOPIA, new Objeto[]{obj}, getLinea());
 
         if(params != null) {
             objParams = new Objeto[params.length];
