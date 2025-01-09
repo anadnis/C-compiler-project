@@ -9,6 +9,7 @@ public class SentDOWHILE extends Instruccion{
         this.cond = cond;
     }
 
+    @Override
     public Objeto generarCodigo() throws Exception{
         String etWhile=Objeto.newEtiq();
         PLXC.out.println(etWhile+";");        

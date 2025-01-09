@@ -807,12 +807,12 @@ class Yylex implements java_cup.runtime.Scanner {
           // fall through
           case 53: break;
           case 3:
-            { return new Symbol(sym.NOT);
+            { return new Symbol(sym.ADMIR);
             }
           // fall through
           case 54: break;
           case 4:
-            { return new Symbol(sym.MOD);
+            { return new Symbol(sym.PORCENT);
             }
           // fall through
           case 55: break;
@@ -847,7 +847,7 @@ class Yylex implements java_cup.runtime.Scanner {
           // fall through
           case 61: break;
           case 11:
-            { return new Symbol(sym.DIV);
+            { return new Symbol(sym.DIVID);
             }
           // fall through
           case 62: break;
@@ -867,7 +867,7 @@ class Yylex implements java_cup.runtime.Scanner {
           // fall through
           case 65: break;
           case 15:
-            { return new Symbol(sym.ASIG);
+            { return new Symbol(sym.ASIGNA);
             }
           // fall through
           case 66: break;
@@ -902,12 +902,12 @@ class Yylex implements java_cup.runtime.Scanner {
           // fall through
           case 72: break;
           case 22:
-            { return new Symbol(sym.DIST);
+            { return new Symbol(sym.DIFERENTE);
             }
           // fall through
           case 73: break;
           case 23:
-            { return new Symbol(sym.AND);
+            { return new Symbol(sym.YLOG);
             }
           // fall through
           case 74: break;
@@ -928,7 +928,7 @@ class Yylex implements java_cup.runtime.Scanner {
           // fall through
           case 77: break;
           case 27:
-            { return new Symbol(sym.MENORIGUAL);
+            { return new Symbol(sym.MENORIG);
             }
           // fall through
           case 78: break;
@@ -938,7 +938,7 @@ class Yylex implements java_cup.runtime.Scanner {
           // fall through
           case 79: break;
           case 29:
-            { return new Symbol(sym.MAYORIGUAL);
+            { return new Symbol(sym.MAYORIG);
             }
           // fall through
           case 80: break;
@@ -953,7 +953,7 @@ class Yylex implements java_cup.runtime.Scanner {
           // fall through
           case 82: break;
           case 32:
-            { return new Symbol(sym.OR);
+            { return new Symbol(sym.OLOG);
             }
           // fall through
           case 83: break;

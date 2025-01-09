@@ -3,7 +3,7 @@ import java.text.ParseException;
 public class SentWHILE extends Instruccion{
     Instruccion cond, cuerpo;
 
-    private SentWHILE(int linea, Instruccion cond, Instruccion cuerpo){
+    public SentWHILE(int linea, Instruccion cond, Instruccion cuerpo){
         super(linea);
         this.cond=cond;
         this.cuerpo=cuerpo;

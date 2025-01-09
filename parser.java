@@ -440,7 +440,7 @@ public class parser extends java_cup.runtime.lr_parser {
 
     action_obj.tabla = new TablaSimbolos();
     action_obj.bloqueActual = 0; // Bloque en el que me encuentro
-    action_obj.idBloque = 0; // Contador de bloques
+    action_obj.cBloque = 0; // Contador de bloques
 
     }
 
@@ -643,9 +643,9 @@ class CUP$parser$actions {
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Instruccion s = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-                    //tabla.eliminarBloque(bloqueActual);
+                    //tabla.borrarBloque(bloqueActual);
                     bloqueActual=b;
-                    RESULT = new SentFORC(PLXC.lex.getLine(),i,c,a,s);
+                    RESULT = new SentFORC(PLXC.lex.getLine(),c,a,s);
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Sentencia",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-9)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -658,7 +658,7 @@ class CUP$parser$actions {
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Instruccion e = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
-		RESULT = new LlamadaMetodo(PLXC.lex.getLine(),e,Metodos.MOSTRAR,null);
+		RESULT = new LlamadaMetodo(PLXC.lex.getLine(),e,Metodos.IMPRIMIR,null);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Sentencia",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -675,7 +675,7 @@ class CUP$parser$actions {
 		Bloque l = (Bloque)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		 
                         //hay que eliminar las variables de ese bloque, de la tabla, y volver al bloque anterior
-                        //tabla.eliminarBloque(bloqueActual);
+                        //tabla.borrarBloque(bloqueActual);
                         bloqueActual = b; //con esto vuelvo al bloque anterior
                         RESULT=l;
                         
@@ -700,7 +700,7 @@ class CUP$parser$actions {
 		 
                         RESULT = bloqueActual; //Guardo el bloque en el que estaba
                         cBloque++;
-                        bloqueActual = cBloque; //a lo mejor hay que comentarlo
+                        
                     
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Inicio_bloque",13, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -810,7 +810,7 @@ class CUP$parser$actions {
 		int iright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String i = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-                            tabla.declararVariable(PLXC.getLine(), i, bloqueActual, true, t);
+                            tabla.declararVariable(PLXC.lex.getLine(), i, bloqueActual, true, t);
                             RESULT = new ListaVar(PLXC.lex.getLine(), t);
                         
               CUP$parser$result = parser.getSymbolFactory().newSymbol("List_declar_var",1, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -887,9 +887,9 @@ class CUP$parser$actions {
           case 27: // List_declar_var ::= List_declar_var COMA IDENT 
             {
               ListaVar RESULT =null;
-		int tleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
-		int tright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		ListaVar t = (ListaVar)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int lleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int lright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		ListaVar l = (ListaVar)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int ileft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String i = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -921,9 +921,9 @@ class CUP$parser$actions {
           case 29: // List_declar_var ::= List_declar_var COMA IDENT ASIGNA Expresion 
             {
               ListaVar RESULT =null;
-		int tleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
-		int tright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
-		ListaVar t = (ListaVar)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
+		int lleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
+		int lright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
+		ListaVar l = (ListaVar)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
 		int ileft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		String i = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
@@ -931,10 +931,10 @@ class CUP$parser$actions {
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Instruccion e = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-                        Variable v = tabla.declararVariable(PLXC.lex.getLine(),i, bloqueActual, true, t.getTipo());
+                        Variable v = tabla.declararVariable(PLXC.lex.getLine(),i, bloqueActual, true, l.getTipo());
                         l.add(new LlamadaMetodo(PLXC.lex.getLine(),
                                         new ExpVariable(PLXC.lex.getLine(), v),
-                                        Metodos.CONSTRUCTOR,
+                                        Metodos.CONSTRUCTORCOPIA,
                                         new Instruccion []{e}));
                         RESULT=l;
                     
@@ -1048,7 +1048,7 @@ class CUP$parser$actions {
 		int lleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int lright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Literal l = (Literal)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		 RESULT = new ExpLiteral(PLXC.lex.getline, l);
+		 RESULT = new ExpLiteral(PLXC.lex.getLine(), l);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Expresion",3, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1062,9 +1062,9 @@ class CUP$parser$actions {
 		String i = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 Objeto o = tabla.buscarObjeto(i); 
                         if ((o == null)||!(o instanceof Variable)){ 
-                            throw new ParseException("Variable ("+i+") no definida", PLXC.lex.getline);
+                            throw new ParseException("Variable ("+i+") no definida", PLXC.lex.getLine());
                         } 
-                            RESULT = new ExpVariable(PLXC.lex.getline(), (Variable) o);
+                            RESULT = new ExpVariable(PLXC.lex.getLine(), (Variable) o);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Expresion",3, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1101,7 +1101,7 @@ class CUP$parser$actions {
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Instruccion e = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-            Objeto obj = tabla.buscar(i);
+            Objeto obj = tabla.buscarObjeto(i);
 
             if(obj == null) {
                 throw new ParseException("Variable <" + i + "> no ha sido declarada", PLXC.lex.getLine());
@@ -1110,7 +1110,7 @@ class CUP$parser$actions {
             RESULT = new LlamadaMetodo(
                 PLXC.lex.getLine(),
                 new ExpVariable(PLXC.lex.getLine(), (Variable) obj),
-                Metodos.ASIGNAR,
+                Metodos.ASIGNA,
                 new Instruccion[]{e}
             );
             
@@ -1128,7 +1128,7 @@ class CUP$parser$actions {
 		int e2left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int e2right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Instruccion e2 = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		 RESULT = new Cortocircuito(PLXC.lex.getLine(), e1, Metodos.OLOG,  e2);
+		 RESULT = new CortoCircuito(PLXC.lex.getLine(), e1, Metodos.OLOG,  e2);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Expresion",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1143,7 +1143,7 @@ class CUP$parser$actions {
 		int e2left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int e2right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Instruccion e2 = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		 RESULT = new Cortocircuito(PLXC.lex.getLine(), e1, Metodos.YLOG,  e2);
+		 RESULT = new CortoCircuito(PLXC.lex.getLine(), e1, Metodos.YLOG,  e2);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Expresion",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1155,6 +1155,9 @@ class CUP$parser$actions {
 		int e1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int e1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Instruccion e1 = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int oleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int oright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		String o = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int e2left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int e2right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Instruccion e2 = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -1170,6 +1173,9 @@ class CUP$parser$actions {
 		int e1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int e1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Instruccion e1 = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int oleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int oright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		String o = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int e2left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int e2right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Instruccion e2 = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -1185,6 +1191,9 @@ class CUP$parser$actions {
 		int e1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int e1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Instruccion e1 = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int oleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int oright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		String o = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int e2left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int e2right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Instruccion e2 = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -1197,6 +1206,9 @@ class CUP$parser$actions {
           case 47: // Expresion ::= OperadorU Expresion 
             {
               Instruccion RESULT =null;
+		int oleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int oright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		String o = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Instruccion e = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -1216,7 +1228,7 @@ class CUP$parser$actions {
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String op = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-                        RESULT = new CopiaYLlama(PLXC.lex.getLine(), e,op,null);
+                        RESULT = new CopiaYLlama(PLXC.lex.getLine(), e , op, null);
                     
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Expresion",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -1244,7 +1256,7 @@ class CUP$parser$actions {
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Instruccion e = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		 var et = new ExpTipo (PLXC.lex.getLine(), t); RESULT = new LlamadaMetodo(PLXC.lex.getLine(), e, METODOS.CAST,  new Instruccion[]{et});
+		 var et = new ExpTipo (PLXC.lex.getLine(), t); RESULT = new LlamadaMetodo(PLXC.lex.getLine(), e, Metodos.CAST,  new Instruccion[]{et});
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Expresion",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1274,7 +1286,7 @@ class CUP$parser$actions {
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Integer e = (Integer)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = new Literal (bloqueActual, TipoInt.Instancia, e);
+		RESULT = new Literal (bloqueActual, TipoInt.instancia, e);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Literal",21, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1286,7 +1298,7 @@ class CUP$parser$actions {
 		int cleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int cright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Integer c = (Integer)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = new Literal (bloqueActual, TipoInt.Instancia, c);
+		RESULT = new Literal (bloqueActual, TipoInt.instancia, c);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Literal",21, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1298,7 +1310,7 @@ class CUP$parser$actions {
 		int rleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int rright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Double r = (Double)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = new Literal (bloqueActual, TipoInt.Instancia, r);
+		RESULT = new Literal (bloqueActual, TipoInt.instancia, r);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Literal",21, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

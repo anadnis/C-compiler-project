@@ -9,7 +9,6 @@ public class LlamadaMetodo extends Instruccion {
         this.e1 = e1;
         this.metodo = metodo;
         this.param = param;
-
     }
 
     @Override
