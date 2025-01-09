@@ -168,7 +168,7 @@ List_declar_var ::= ExpTipo:t IDENT:i
 
                             RESULT=l;
                         :}
-                    |ExpTipo:t IDENT:i AC ENTERO:e CC ASIGNA Array:e
+                    |ExpTipo:t IDENT:i AC ENTERO:e CC ASIGNA Array:a
 
                     |List_declar_var:l COMA IDENT:i
                         {:tabla.declararVariable(PLXC.lex.getLine(),i,bloqueActual,true,l.getTipo());
@@ -177,15 +177,15 @@ List_declar_var ::= ExpTipo:t IDENT:i
                     |List_declar_var:t COMA IDENT:i AC ENTERO:e CC
 
                     |List_declar_var:l COMA IDENT:i ASIGNA Expresion:e
-                    {:
-                        Variable v = tabla.declararVariable(PLXC.lex.getLine(),i, bloqueActual, true, l.getTipo());
-                        l.add(new LlamadaMetodo(PLXC.lex.getLine(),
-                                        new ExpVariable(PLXC.lex.getLine(), v),
-                                        Metodos.CONSTRUCTORCOPIA,
-                                        new Instruccion []{e}));
-                        RESULT=l;
-                    :}
-                    |List_declar_var:t COMA IDENT:i AC ENTERO:e CC ASIGNA Array:e
+                        {:
+                            Variable v = tabla.declararVariable(PLXC.lex.getLine(),i, bloqueActual, true, l.getTipo());
+                            l.add(new LlamadaMetodo(PLXC.lex.getLine(),
+                                            new ExpVariable(PLXC.lex.getLine(), v),
+                                            Metodos.CONSTRUCTORCOPIA,
+                                            new Instruccion []{e}));
+                            RESULT=l;
+                        :}
+                    |List_declar_var:t COMA IDENT:i AC ENTERO:e CC ASIGNA Array:a
                     ;
 
 Array ::= IDENT

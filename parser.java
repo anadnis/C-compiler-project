@@ -461,12 +461,6 @@ public class parser extends java_cup.runtime.lr_parser {
 /** Cup generated class to encapsulate user supplied action code.*/
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})
 class CUP$parser$actions {
-
-
-    TablaSimbolos tabla =new TablaSimbolos();
-    int bloqueActual=0;
-    int cBloque = 0;
-
   private final parser parser;
 
   /** Constructor */
@@ -700,7 +694,7 @@ class CUP$parser$actions {
 		 
                         RESULT = bloqueActual; //Guardo el bloque en el que estaba
                         cBloque++;
-                        
+                        bloqueActual = cBloque; //a lo mejor hay que comentarlo
                     
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Inicio_bloque",13, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -931,13 +925,13 @@ class CUP$parser$actions {
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Instruccion e = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-                        Variable v = tabla.declararVariable(PLXC.lex.getLine(),i, bloqueActual, true, l.getTipo());
-                        l.add(new LlamadaMetodo(PLXC.lex.getLine(),
-                                        new ExpVariable(PLXC.lex.getLine(), v),
-                                        Metodos.CONSTRUCTORCOPIA,
-                                        new Instruccion []{e}));
-                        RESULT=l;
-                    
+                            Variable v = tabla.declararVariable(PLXC.lex.getLine(),i, bloqueActual, true, l.getTipo());
+                            l.add(new LlamadaMetodo(PLXC.lex.getLine(),
+                                            new ExpVariable(PLXC.lex.getLine(), v),
+                                            Metodos.CONSTRUCTORCOPIA,
+                                            new Instruccion []{e}));
+                            RESULT=l;
+                        
               CUP$parser$result = parser.getSymbolFactory().newSymbol("List_declar_var",1, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -967,9 +961,6 @@ class CUP$parser$actions {
           case 31: // Array ::= IDENT 
             {
               Object RESULT =null;
-		int ileft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
-		int iright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String i = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Array",9, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -1101,18 +1092,17 @@ class CUP$parser$actions {
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Instruccion e = (Instruccion)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-            Objeto obj = tabla.buscarObjeto(i);
+                    Objeto obj = tabla.buscarObjeto(i);
 
-            if(obj == null) {
-                throw new ParseException("Variable <" + i + "> no ha sido declarada", PLXC.lex.getLine());
-            }
-
-            RESULT = new LlamadaMetodo(
-                PLXC.lex.getLine(),
-                new ExpVariable(PLXC.lex.getLine(), (Variable) obj),
-                Metodos.ASIGNA,
-                new Instruccion[]{e}
-            );
+                    if(obj == null) {
+                        throw new ParseException("Variable <" + i + "> no ha sido declarada", PLXC.lex.getLine());
+                    }
+                    RESULT = new LlamadaMetodo(
+                        PLXC.lex.getLine(),
+                        new ExpVariable(PLXC.lex.getLine(), (Variable) obj),
+                        Metodos.ASIGNA,
+                        new Instruccion[]{e}
+                );
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Expresion",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
