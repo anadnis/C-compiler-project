@@ -105,8 +105,8 @@ public class TipoInt extends Tipo{  //una única instancia de objeto entero en t
                         throw new ParseException("Tipo inválido para operar con " + getNombre(), linea);
                 }
             //hasta aquí, esta copiado de github porque no lo teníamos
-             v=new Variable(newNomObj(),instancia.getBloque(),false,(Tipo) param[0]); //en github en vez de (Tipo) param[0] pones this
-             PLXC.out.println(v.getIDC()+" = "+instancia.getIDC()+";");
+             v=new Variable(newNomObj(),instancia.getBloque(),false,this); //en github en vez de (Tipo) param[0] pones this
+             PLXC.out.print(v.getIDC()+" = "+instancia.getIDC());
              switch (metodo) {
                 case Metodos.SUMA:
                     PLXC.out.print(" + ");
@@ -215,5 +215,5 @@ public class TipoInt extends Tipo{  //una única instancia de objeto entero en t
       //en la linea de cast, que no se ve en la foto al final, mete como parametro, metodos.CAST ,new Objeto[] {this}
             // en la linea swich case de predefinidos , el ultimo parámetro: (tipo) param[0]
 
-    //clase TOCHa son como 180 lineas de codigo . un mega case switch y carlos tiene dos fotos. martes 10 dic
+    // carlos tiene dos fotos. martes 10 dic
 }

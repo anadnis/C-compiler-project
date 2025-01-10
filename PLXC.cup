@@ -292,8 +292,6 @@ OperadorUPost::= MASMAS {:RESULT=Metodos.SIGUIENTE;:}
                |MENOSMENOS   {: RESULT = Metodos.ANTERIOR; :}
 ;
 
-
-
 //ej.plx codigo fuente
 //MiCompilador genera un ej.ctd
 //ctd es el que transforma mi ej.ctd , genera una salida

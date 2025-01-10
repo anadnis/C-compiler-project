@@ -461,6 +461,12 @@ public class parser extends java_cup.runtime.lr_parser {
 /** Cup generated class to encapsulate user supplied action code.*/
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})
 class CUP$parser$actions {
+
+
+    TablaSimbolos tabla =new TablaSimbolos();
+    int bloqueActual=0;
+    int cBloque = 0;
+
   private final parser parser;
 
   /** Constructor */
@@ -869,9 +875,9 @@ class CUP$parser$actions {
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		Integer e = (Integer)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
-		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
-		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Object e = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("List_declar_var",1, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -949,9 +955,9 @@ class CUP$parser$actions {
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		Integer e = (Integer)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
-		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
-		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Object e = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("List_declar_var",1, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
