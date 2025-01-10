@@ -23,7 +23,7 @@ public class TipoBool extends Tipo{
                 if(!instancia.getMutable()){
                     throw new ParseException("("+instancia.getNombre()+") no es una variable",linea);
                 }
-
+            //esta bien 25:
             case Metodos.CONSTRUCTORCOPIA:
                 Objeto p=param[0];
                 if(!(p instanceof Instancia)){
@@ -48,14 +48,17 @@ public class TipoBool extends Tipo{
                     case Predefinidos.ENTERO:
                     return instancia;
 
-                    case Predefinidos.CARACTER:
-                        v=new Variable(newNomObj(),instancia.getBloque(),false,(Tipo) param[0]); 
-                        PLXC.out.println(v.getIDC()+" = "+instancia.getIDC()+";");
-                        return v;
-
                     case Predefinidos.REAL:
                         v=new Variable(newNomObj(),instancia.getBloque(),false,(Tipo) param[0]); //no estpy seguro si es param[0]
                         PLXC.out.println(v.getIDC()+"= (float) "+instancia.getIDC()+";");
+                        return v;
+                    default :
+                        throw new ParseException("No se puede convertir "+instancia, linea);
+                    //aqui 53
+                    /* 
+                    case Predefinidos.CARACTER:
+                        v=new Variable(newNomObj(),instancia.getBloque(),false,(Tipo) param[0]); 
+                        PLXC.out.println(v.getIDC()+" = "+instancia.getIDC()+";");
                         return v;
 
                     case Predefinidos.BOOL:
@@ -66,11 +69,9 @@ public class TipoBool extends Tipo{
                         PLXC.out.println(v.getIDC()+" =0;");
                         PLXC.out.println(et1+":");
                         return v;
-                    
-                    default:
-                        throw new ParseException("No se puede convertir "+instancia, linea);
+                    */
                 }
-                
+                /* 
                 case Metodos.SUMA:
                 case Metodos.RESTA:
                 case Metodos.MULT:
@@ -86,9 +87,8 @@ public class TipoBool extends Tipo{
                     }
 
                     par=(Instancia) p;
-                /* CHEQUEAR SI FUNCIONA, ES DEL TIPOINT
-                * //de aqui
-                    switch(tipo.getNombre()) {
+                //de aqui
+                    switch(par.getTipo().getNombre()) {
                         case Predefinidos.REAL:
                             // Si el operando es un real, me convierto a real y dejo a la clase TipoFloat que haga la operación
                             v = (Variable) instancia.generarCodigoMetodo(Metodos.CAST, new Objeto[]{TipoReal.instancia}, linea);
@@ -103,7 +103,6 @@ public class TipoBool extends Tipo{
                             throw new ParseException("Tipo inválido para operar con " + getNombre(), linea);
                     }
                 //hasta aquí, esta copiado de github porque no lo teníamos
-                */
                 v=new Variable(newNomObj(),instancia.getBloque(),false,(Tipo) param[0]); //no estpy seguro si es param[0]
                 PLXC.out.println(v.getIDC()+" = "+instancia.getIDC()+";");
                 switch (metodo) {
@@ -135,7 +134,7 @@ public class TipoBool extends Tipo{
                 case Metodos.ANTERIOR:
                 PLXC.out.println(instancia.getIDC()+" = "+instancia.getIDC()+";");
                 return instancia;
-                
+
                 //de tipoint:
                 case Metodos.RESTO:
                 p = param[0];
@@ -151,14 +150,14 @@ public class TipoBool extends Tipo{
                 Objeto cociente = instancia.generarCodigoMetodo(Metodos.DIVID, param, linea); // $t0 = a / b;
                 Objeto mult = cociente.generarCodigoMetodo(Metodos.MULT, param, linea); // $t1 = $t0 * b;
                 return instancia.generarCodigoMetodo(Metodos.RESTA, new Objeto[]{mult}, linea); // $t2 = a - $t1
-                // Relacionales
+                // Relacionales */
                 case Metodos.IGUAL:
-                case Metodos.DIFERENTE:
+                case Metodos.DIFERENTE: //aqui 56
                 case Metodos.MENOR:
                 case Metodos.MENORIG:
                 case Metodos.MAYOR:
                 case Metodos.MAYORIG:
-                    p = param[0];
+                    /*p = param[0];
 
                     if(!(p instanceof Instancia)) {
                         throw new ParseException(p.getNombre() + " no es una instancia (literal o variable)", linea);
@@ -169,34 +168,7 @@ public class TipoBool extends Tipo{
                     }
 
                 //lo anterior de tipoint
-
-                v=new Variable(newNomObj(), instancia.getBloque(), false, TipoBool.instancia);
-                et1=newEtiq();
-                PLXC.out.println(v.getIDC()+" = 1;");
-
-                switch(metodo){
-                    case Metodos.IGUAL: 
-                    PLXC.out.println("if ("+instancia.getIDC()+" == "+par.getIDC() /*algo */); 
-                    break;
-
-                    case Metodos.DIFERENTE:
-                    PLXC.out.println("if ("+instancia.getIDC()+ /*algo */par.getIDC());
-                    break; 
-
-                    case Metodos.MAYOR: 
-                    PLXC.out.println("if ("+par.getIDC()+" < "+instancia.getIDC() /*algo */);
-                    break;
-
-                    case Metodos.MENOR:
-                    PLXC.out.println("if ("+instancia.getIDC()+" < "+par.getIDC()/*algo */);
-                    break; 
-
-                    case Metodos.MAYORIG:
-                    PLXC.out.println("if ("+instancia.getIDC()+" == "+par.getIDC() /*algo */); 
-                    PLXC.out.println("if ("+par.getIDC()+" < "+instancia.getIDC() /*algo */);
-                    break; 
-
-                    case Metodos.MENORIG:
+                    */
                     if((param==null) || (param.length!=1) || (!(param[0] instanceof Tipo))){
                         throw new ParseException("La operacion "+metodo+ "necesita una etiqueta como parametro",linea);
                     }
@@ -204,31 +176,66 @@ public class TipoBool extends Tipo{
                     if(this != par.getTipo()) {
                         par=(Instancia) par.generarCodigoMetodo(Metodos.CAST, new Objeto[] {this}, linea);
                     }
-
                 v=new Variable(newNomObj(), instancia.getBloque(), false, TipoBool.instancia);
                 et1=newEtiq();
                 PLXC.out.println(v.getIDC()+" = 1;");
 
                 switch(metodo){
                     case Metodos.IGUAL: 
-                    PLXC.out.println("if ("+instancia.getIDC()+" == "+par.getIDC() /*algo */); 
+                        PLXC.out.println("if ("+instancia.getIDC()+" == "+par.getIDC()+ ") goto " + et1 + ";"); 
+                        break;
+
+                    case Metodos.DIFERENTE:
+                        PLXC.out.println("if ("+instancia.getIDC()+ " != " +par.getIDC()+ ") goto " + et1 + ";");
+                        break; 
+
+                    case Metodos.MAYOR: 
+                        PLXC.out.println("if ("+par.getIDC()+" < "+instancia.getIDC() + ") goto " + et1 + ";");
+                        break;
+
+                    case Metodos.MENOR:
+                        PLXC.out.println("if ("+instancia.getIDC()+" < "+par.getIDC()+ ") goto " + et1 + ";");
+                        break;                      
+
+                    case Metodos.MAYORIG:
+                        PLXC.out.println("if ("+instancia.getIDC()+" == "+par.getIDC()+") goto " + et1 + ";"); 
+                        PLXC.out.println("if ("+par.getIDC()+" < "+instancia.getIDC()+") goto " + et1 + ";");
+                        break;  
+
+                    case Metodos.MENORIG:
+                    PLXC.out.println(v.getIDC()+" = 0 ");
+                    PLXC.out.println(et1 + " ");
+                    break;
+                } //linea 96    
+                PLXC.out.println(v.getIDC()+" = 0;"); //linea 98
+                PLXC.out.println(et1+";");
+
+                return v; //linea 101
+
+                /*v=new Variable(newNomObj(), instancia.getBloque(), false, TipoBool.instancia);
+                et1=newEtiq();
+                PLXC.out.println(v.getIDC()+" = 1;");
+
+                switch(metodo){
+                    case Metodos.IGUAL: 
+                    PLXC.out.println("if ("+instancia.getIDC()+" == "+par.getIDC() algoooo ); 
                     break;
 
                     case Metodos.DIFERENTE:
-                    PLXC.out.println("if ("+instancia.getIDC()+ /*algo */par.getIDC());
+                    PLXC.out.println("if ("+instancia.getIDC()+ algoooo par.getIDC());
                     break; 
 
                     case Metodos.MAYOR: 
-                    PLXC.out.println("if ("+par.getIDC()+" < "+instancia.getIDC() /*algo */);
+                    PLXC.out.println("if ("+par.getIDC()+" < "+instancia.getIDC() algoooo );
                     break;
 
                     case Metodos.MENOR:
-                    PLXC.out.println("if ("+instancia.getIDC()+" < "+par.getIDC()/*algo */);
+                    PLXC.out.println("if ("+instancia.getIDC()+" < "+par.getIDC()algoooo );
                     break; 
 
                     case Metodos.MAYORIG:
-                    PLXC.out.println("if ("+instancia.getIDC()+" == "+par.getIDC() /*algo */); 
-                    PLXC.out.println("if ("+par.getIDC()+" < "+instancia.getIDC() /*algo */);
+                    PLXC.out.println("if ("+instancia.getIDC()+" == "+par.getIDC() algoooo ); 
+                    PLXC.out.println("if ("+par.getIDC()+" < "+instancia.getIDC() algoooo );
                     break; 
 
                     case Metodos.MENORIG:
@@ -236,21 +243,20 @@ public class TipoBool extends Tipo{
                     PLXC.out.println(et1 + " ");
                     break;
                 }
-                    return v;
-            
+                    return v;  */
                 case Metodos.NLOG:
-                    et=(Etiqueta) param[0];
+                   
                     v=new Variable(newNomObj(), instancia.getBloque(), false, TipoBool.instancia);
                     et1=newEtiq();
                     PLXC.out.println(v.getIDC()+" = 1;");                
-                    PLXC.out.println("if ("+instancia.getIDC()+" == 0) goto "+et.getIDC()+";"); 
-                    PLXC.out.println(v.getIDC()+" = 0;");
-                    PLXC.out.println(et1 + " ");
+                    PLXC.out.println("if ("+instancia.getIDC()+" == 0) goto "+et1+";"); 
+                    PLXC.out.println(v.getIDC()+" = 0;"); //linea 107
+                    PLXC.out.println(et1 + ": ");
                     return v;
 
-                case Metodos.YLOG:
+                case Metodos.YLOG:    
                 case Metodos.OLOG:
-                    if((param==null) || (param.length!=1) || (!(param[0] instanceof Tipo)))  {
+                    if((param==null) || (param.length!=1) /*|| (!(param[0] instanceof Tipo))*/)  {
                         throw new ParseException("La operacion "+metodo+ "necesita una etiqueta como parametro",linea);
                     }
                     et=(Etiqueta) param[0];
@@ -260,18 +266,19 @@ public class TipoBool extends Tipo{
 
                     switch (metodo) {
                         case Metodos.YLOG: 
-                            PLXC.out.println("if ("+instancia.getIDC()+" ==0 "+et.getIDC()+";"); 
+                            PLXC.out.println("if ("+instancia.getIDC()+" ==0) goto "+et.getIDC()+";"); 
                             break;
                         case Metodos.OLOG: 
-                            PLXC.out.println("if ("+instancia.getIDC()+" ==1 "+et.getIDC()+";"); 
-                            break;
+                            PLXC.out.println("if ("+instancia.getIDC()+" ==1) goto "+et.getIDC()+";"); 
+                            break;//linea 128
                     }
                     return v;
                 default:
                 throw new ParseException("Operacion ("+metodo+"... no implementada para el tipo "+getNombre(),linea);    
             }
-        }
-     return null; //en la linea de cast, que no se ve en la foto al final, mete como parametro, metodos.CAST ,new Objeto[] {this}
+            return null; //linea 134
+        
+        //en la linea de cast, que no se ve en la foto al final, mete como parametro, metodos.CAST ,new Objeto[] {this}
     }       // en la linea swich case de predefinidos , el ultimo parámetro: (tipo) param[0]
 
 

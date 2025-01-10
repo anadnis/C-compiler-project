@@ -12,10 +12,10 @@ public class SentDOWHILE extends Instruccion{
     @Override
     public Objeto generarCodigo() throws Exception{
         String etWhile=Objeto.newEtiq();
-        PLXC.out.println(etWhile+";");        
-        cuerpo.generarCodigo();
+        PLXC.out.println(etWhile+":");        
+        cond.generarCodigo();
         
-        Objeto c=cond.generarCodigo();
+        Objeto c=cuerpo.generarCodigo();
         if(!(c instanceof Instancia)){
             throw new ParseException("La condicion de un while debe ser una instancia (literal o variable)", getLinea());
         }
@@ -26,7 +26,7 @@ public class SentDOWHILE extends Instruccion{
             iCond=(Instancia) iCond.generarCodigoMetodo(Metodos.CAST, new Objeto[]{TipoBool.instancia}, getLinea());
         }
     
-        PLXC.out.println("if ("+iCond.getIDC()+ " == 0) goto"+etWhile+";");
+        PLXC.out.println("if ("+iCond.getIDC()+ " != 0) goto "+etWhile+";");
         
         //PLXC.out.println("goto "+etWhile+";");
         //PLXC.out.println(etFinal+" ");

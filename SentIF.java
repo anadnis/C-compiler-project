@@ -1,7 +1,8 @@
 import java.text.ParseException;
 
 public class SentIF extends Instruccion{
-    Instruccion cond, pTrue, pFalse;
+    private Instruccion cond, pTrue, pFalse;
+
     public SentIF(int linea, Instruccion cond, Instruccion pTrue, Instruccion pFalse) {
         super(linea);
         this.cond = cond;
@@ -20,18 +21,21 @@ public Objeto generarCodigo() throws Exception{
     }
 
     Instancia iCond=(Instancia) c;
-
+ 
     if(iCond.getTipo() != TipoBool.instancia){
         iCond=(Instancia) iCond.generarCodigoMetodo(Metodos.CAST, new Objeto[]{TipoBool.instancia}, getLinea());
     }
 
-    PLXC.out.println("if ("+iCond.getIDC()+ " == 0) goto" + etFalse + ";");
+    PLXC.out.println("if (" + iCond.getIDC() + " == 0) goto " + etFalse + ";"); //if (exp == 0) goto etqFalse;
     pTrue.generarCodigo();
 
     PLXC.out.println("goto "+etFinal+";");
-    PLXC.out.println(etFalse+";");
+    PLXC.out.println(etFalse+":");
 
     if(pFalse!=null) {pFalse.generarCodigo();}
+
+    PLXC.out.println(etFinal + ":");
+
     return null;
 }
 }

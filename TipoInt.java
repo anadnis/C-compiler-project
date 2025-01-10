@@ -64,9 +64,9 @@ public class TipoInt extends Tipo{  //una única instancia de objeto entero en t
                 case Predefinidos.BOOL:
                     v=new Variable(newNomObj(),instancia.getBloque(),false,TipoBool.instancia); 
                     et1=newEtiq(); 
-                    PLXC.out.println(v.getIDC()+"= l: "); // $t0 = 1
+                    PLXC.out.println(v.getIDC()+"= 1; "); // $t0 = 1
                     PLXC.out.println("if ("+instancia.getIDC()+" )= 0) goto "+et1+";");
-                    PLXC.out.println(v.getIDC()+" =0;"); // $t0 = 0
+                    PLXC.out.println(v.getIDC()+" = 0;"); // $t0 = 0
                     PLXC.out.println(et1+":"); // L1
                     return v;               
                 default:
@@ -188,7 +188,7 @@ public class TipoInt extends Tipo{  //una única instancia de objeto entero en t
                 PLXC.out.println("if ("+instancia.getIDC()+" < "+par.getIDC() + ") goto " + et1 + ";");
                 break; 
             }
-            PLXC.out.println(v.getIDC()+" = 0 ");
+            PLXC.out.println(v.getIDC()+" = 0 ;");
             PLXC.out.println(et1 + ":");
 
             return v;

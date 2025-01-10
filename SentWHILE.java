@@ -26,11 +26,11 @@ public class SentWHILE extends Instruccion{
             iCond=(Instancia) iCond.generarCodigoMetodo(Metodos.CAST, new Objeto[]{TipoBool.instancia}, getLinea());
         }
     
-        PLXC.out.println("if ("+iCond.getIDC()+ " == 0) goto"+etFinal); //no se si es etWhile o etFinal
+        PLXC.out.println("if ("+iCond.getIDC()+ " == 0) goto "+etFinal+ ";"); //no se si es etWhile o etFinal
         cuerpo.generarCodigo();
         
         PLXC.out.println("goto "+etWhile+";");
-        PLXC.out.println(etFinal+" ");
+        PLXC.out.println(etFinal+": ");
 
         return null;
     }

@@ -13,6 +13,7 @@ parser code {:
         PLXC.out.println("# Syntax Error");
         PLXC.out.println("error;");
         PLXC.out.println("halt;");
+        done_parsing();
     }
 :}
 
@@ -93,9 +94,9 @@ Sentencia ::=   List_declar_var:l PCOMA {:RESULT = l;:}
                 | DO Sentencia:s WHILE AP Expresion:c CP PCOMA {:RESULT = new SentDOWHILE(PLXC.lex.getLine(),c,s);:}
                 | FOR Inicio_bloque:b AP Inicio_forc:i PCOMA Cond_forc:c PCOMA Act_forc:a CP Sentencia:s
                 {:
-                    //tabla.borrarBloque(bloqueActual);
+                    tabla.borrarBloque(bloqueActual);
                     bloqueActual=b;
-                    RESULT = new SentFORC(PLXC.lex.getLine(),c,a,s);
+                    RESULT = new SentFORC(PLXC.lex.getLine(),i,c,a,s);
                 :}
                 | PRINT AP Expresion:e CP PCOMA //habra que ver si llevarnoslo a  expresion y return void
                 {:RESULT = new LlamadaMetodo(PLXC.lex.getLine(),e,Metodos.IMPRIMIR,null);:}
@@ -232,6 +233,8 @@ Expresion ::= Literal:l {: RESULT = new ExpLiteral(PLXC.lex.getLine(), l);:}
                         new Instruccion[]{e}
                 );
             :}
+
+            |ADMIR Expresion:e  {: RESULT = new LlamadaMetodo(PLXC.lex.getLine(), e, Metodos.NLOG, null);:}
             
             |Expresion:e1 OLOG Expresion:e2  {: RESULT = new CortoCircuito(PLXC.lex.getLine(), e1, Metodos.OLOG,  e2);:}
 
@@ -244,6 +247,7 @@ Expresion ::= Literal:l {: RESULT = new ExpLiteral(PLXC.lex.getLine(), l);:}
             |Expresion:e1 OperadorM:o Expresion:e2 {: RESULT = new LlamadaMetodo(PLXC.lex.getLine(), e1, o, new Instruccion[]{e2});:}%prec MULT
 
             |OperadorU:o Expresion:e {: RESULT = new LlamadaMetodo(PLXC.lex.getLine(), e, o, null);:} %prec MENOSUNARIO
+
 
             |Expresion:e OperadorUPost:op
                     {:

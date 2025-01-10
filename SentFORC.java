@@ -1,40 +1,48 @@
 import java.text.ParseException;
 
-public class SentFORC extends Instruccion{
-    //Ciertas cosas dudosas
-    Instruccion cond,act,cuerpo;
-    public SentFORC(int linea, Instruccion cond, Instruccion act, Instruccion cuerpo) {
+public class SentFORC extends Instruccion {
+    private Instruccion inicio, cond, act, cuerpo;
+
+    public SentFORC(int linea, Instruccion inicio, Instruccion cond, Instruccion act, Instruccion cuerpo) {
         super(linea);
+        this.inicio = inicio;
         this.cond = cond;
         this.act = act;
         this.cuerpo = cuerpo;
     }
 
     @Override
-    public Objeto generarCodigo() throws Exception{
-        String etFor = Objeto.newEtiq();
-        String etFinal = Objeto.newEtiq();
-        Objeto c= cond.generarCodigo();
+    public Objeto generarCodigo() throws Exception {
+        Objeto condObj;
+        String etqFor = Objeto.newEtiq();
+        String etqFin = Objeto.newEtiq();
 
-        if(!(c instanceof Instancia)){
-            throw new ParseException("La condición del for debe ser una instancia (literal o variable)", getLinea());
+        if(inicio != null) inicio.generarCodigo();
+
+        PLXC.out.println(etqFor + ":"); // etqFor:
+
+        if(cond != null) {
+            condObj = cond.generarCodigo();
+
+            if(!(condObj instanceof Instancia)) {
+                throw new ParseException("La condición del for debe ser una instancia (literal o variable)", getLinea());
+            }
+
+            // Intentamos convertirlo a booleano
+            if(((Instancia) condObj).getTipo() != TipoBool.instancia) {
+                condObj = condObj.generarCodigoMetodo(Metodos.CAST, new Objeto[]{TipoBool.instancia}, getLinea());
+            }
+
+            PLXC.out.println("if (" + condObj.getIDC() + " == 0) goto " + etqFin + ";"); // if (exp == 0) goto etqFin
         }
+        
+        if(cuerpo != null) cuerpo.generarCodigo();
+        if(act != null) act.generarCodigo();
+        PLXC.out.println("goto " + etqFor + ";"); // goto etqFor
 
-        Instancia iCond=(Instancia) c;
-
-        if(iCond.getTipo() != TipoBool.instancia){
-            iCond=(Instancia) iCond.generarCodigoMetodo(Metodos.CAST, new Objeto[]{TipoBool.instancia}, getLinea());
-        }
-
-        PLXC.out.println("if ("+iCond.getIDC()+ " == 0) goto"+ etFinal + ";");
-
-        if(cuerpo!=null) cuerpo.generarCodigo();
-
-        if(act!=null) act.generarCodigo();
-
-        PLXC.out.println("goto "+etFor+";");
-        PLXC.out.println(etFinal+";");
+        PLXC.out.println(etqFin + ":"); // etqFin:
 
         return null;
     }
+    
 }
