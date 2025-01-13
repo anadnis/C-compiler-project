@@ -16,9 +16,25 @@ public class TipoBool extends Tipo{
        
         switch(metodo){
             case Metodos.IMPRIMIR:
-                PLXC.out.println("print "+instancia.getIDC()+";");
-                break;
-
+            et1=newEtiq();
+            String etFin=newEtiq();
+            PLXC.out.println("if ("+instancia.getIDC()+" == 0 ) goto " + et1 + ";"); 
+            PLXC.out.println("writec 116;");
+            PLXC.out.println("writec 114;");
+            PLXC.out.println("writec 117;");
+            PLXC.out.println("writec 101;");
+            PLXC.out.println("writec 10;");
+            PLXC.out.println("goto "+etFin+";");
+            PLXC.out.println(et1 + ":");
+            PLXC.out.println("writec 102;");
+            PLXC.out.println("writec 97;");
+            PLXC.out.println("writec 108;");
+            PLXC.out.println("writec 115;");
+            PLXC.out.println("writec 101;");
+            PLXC.out.println("writec 10;");
+            PLXC.out.println(etFin+":");
+            break;            
+            
             case Metodos.ASIGNA:
                 if(!instancia.getMutable()){
                     throw new ParseException("("+instancia.getNombre()+") no es una variable",linea);
@@ -61,14 +77,7 @@ public class TipoBool extends Tipo{
                         PLXC.out.println(v.getIDC()+" = "+instancia.getIDC()+";");
                         return v;
 
-                    case Predefinidos.BOOL:
-                        v=new Variable(newNomObj(),instancia.getBloque(),false,(Tipo) param[0]); //no estpy seguro si es param[0] en tipoInt es diferente, pone tipoBool
-                        et1=newEtiq(); 
-                        PLXC.out.println(v.getIDC()+"= l: ");
-                        PLXC.out.println("if ("+instancia.getIDC()+" )= 0) goto "+et1+";");
-                        PLXC.out.println(v.getIDC()+" =0;");
-                        PLXC.out.println(et1+":");
-                        return v;
+                    
                     */
                 }
                 /* 
@@ -203,9 +212,9 @@ public class TipoBool extends Tipo{
                         break;  
 
                     case Metodos.MENORIG:
-                    PLXC.out.println(v.getIDC()+" = 0 ");
-                    PLXC.out.println(et1 + " ");
-                    break;
+                        PLXC.out.println(v.getIDC()+" = 0 ");
+                        PLXC.out.println(et1 + " ");
+                        break;
                 } //linea 96    
                 PLXC.out.println(v.getIDC()+" = 0;"); //linea 98
                 PLXC.out.println(et1+";");
@@ -273,6 +282,7 @@ public class TipoBool extends Tipo{
                             break;//linea 128
                     }
                     return v;
+                  
                 default:
                 throw new ParseException("Operacion ("+metodo+"... no implementada para el tipo "+getNombre(),linea);    
             }
@@ -281,8 +291,7 @@ public class TipoBool extends Tipo{
         //en la linea de cast, que no se ve en la foto al final, mete como parametro, metodos.CAST ,new Objeto[] {this}
     }       // en la linea swich case de predefinidos , el ultimo parámetro: (tipo) param[0]
 
-
-    
+   
     @Override
     public Objeto generarCodigoMetodo(String metodo, Objeto[] param, int linea) throws Exception{
         return null;
@@ -290,4 +299,4 @@ public class TipoBool extends Tipo{
 }
 
 
-// tood igual que enetero incluyendo el cast, lo unico distinto es las operaciones lógicas ylog olog (carlos tiene muchas fotos 17 dic)
+// tood igual que enetero incluyendo el cast, lo unico distinto es las operaciones lógicas ylog olog 

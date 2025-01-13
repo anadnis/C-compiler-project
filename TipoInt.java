@@ -1,4 +1,4 @@
-import java.text.ParseException;;
+import java.text.ParseException;
 
 public class TipoInt extends Tipo{  //una única instancia de objeto entero en todo el programa
     public static final TipoInt instancia = new TipoInt();
@@ -6,7 +6,7 @@ public class TipoInt extends Tipo{  //una única instancia de objeto entero en t
     private TipoInt(){
         super(Predefinidos.ENTERO, 0, false);
     }
-//fotos carlos martes 10 dic (2) y 17 diciembre varias
+    
     @Override
     public Objeto generarCodigoMetodo(String metodo, Objeto[] param, int linea) throws Exception{
         //creo que falta y en github tambien
@@ -25,6 +25,10 @@ public class TipoInt extends Tipo{  //una única instancia de objeto entero en t
                 break;
 
             case Metodos.ASIGNA:
+                if (((Instancia) param[0]).getTipo().getNombre() == Predefinidos.REAL || ((Instancia) param[0]).getTipo().getNombre() == Predefinidos.CARACTER) {
+                    PLXC.out.println("error;");
+                    break;
+                }
                 if(!instancia.getMutable()){
                     throw new ParseException("("+instancia.getNombre()+") no se puede reasignar un valor a la constante",linea);
                 }
@@ -65,7 +69,7 @@ public class TipoInt extends Tipo{  //una única instancia de objeto entero en t
                     v=new Variable(newNomObj(),instancia.getBloque(),false,TipoBool.instancia); 
                     et1=newEtiq(); 
                     PLXC.out.println(v.getIDC()+"= 1; "); // $t0 = 1
-                    PLXC.out.println("if ("+instancia.getIDC()+" )= 0) goto "+et1+";");
+                    PLXC.out.println("if ("+instancia.getIDC()+" != 0) goto "+et1+";");
                     PLXC.out.println(v.getIDC()+" = 0;"); // $t0 = 0
                     PLXC.out.println(et1+":"); // L1
                     return v;               
@@ -81,15 +85,11 @@ public class TipoInt extends Tipo{  //una única instancia de objeto entero en t
                 if(param == null) {
                     throw new ParseException("No se han pasado parámetros para " + metodo, linea);
                 }
-
                 p = param[0];
-
                 if(!(p instanceof Instancia)) {
                     throw new ParseException("<" + p.getNombre() + "> no es una instancia (literal o variable)", linea);
-                }
-                
+                }               
                 par= (Instancia) p;
-
                 switch(par.getTipo().getNombre()) {
                     case Predefinidos.REAL:
                         // Si el operando es un real, me convierto a real y dejo a la clase TipoFloat que haga la operación
@@ -105,37 +105,33 @@ public class TipoInt extends Tipo{  //una única instancia de objeto entero en t
                         throw new ParseException("Tipo inválido para operar con " + getNombre(), linea);
                 }
             //hasta aquí, esta copiado de github porque no lo teníamos
-             v=new Variable(newNomObj(),instancia.getBloque(),false,this); //en github en vez de (Tipo) param[0] pones this
-             PLXC.out.print(v.getIDC()+" = "+instancia.getIDC());
-             switch (metodo) {
-                case Metodos.SUMA:
-                    PLXC.out.print(" + ");
-                    break;
-                case Metodos.RESTA:
-                    PLXC.out.print(" - ");
-                    break;
-                case Metodos.MULT:
-                    PLXC.out.print(" * ");
-                    break;
-                case Metodos.DIVID:
-                    PLXC.out.print(" / ");
-                    break;
-             }
+                v=new Variable(newNomObj(),instancia.getBloque(),false,this); //en github en vez de (Tipo) param[0] pones this
+                PLXC.out.print(v.getIDC()+" = "+instancia.getIDC());
+                switch (metodo) {
+                    case Metodos.SUMA:
+                        PLXC.out.print(" + ");
+                        break;
+                    case Metodos.RESTA:
+                        PLXC.out.print(" - ");
+                        break;
+                    case Metodos.MULT:
+                        PLXC.out.print(" * ");
+                        break;
+                    case Metodos.DIVID:
+                        PLXC.out.print(" / ");
+                        break;
+                }
              PLXC.out.println(par.getIDC()+";");
              return v;
-            
-            //de aqui
+                       
             case Metodos.RESTO:
-            p = param[0];
-
-            if(!(p instanceof Instancia)) {
-                throw new ParseException(p.getNombre() + " no es una instancia (literal o variable)", linea);
-            }
-
-            if(((Instancia) p).getTipo() != this) {
-                p = p.generarCodigoMetodo(Metodos.CAST, new Objeto[]{this}, linea);
-            }
-
+                p = param[0];
+                if(!(p instanceof Instancia)) {
+                    throw new ParseException(p.getNombre() + " no es una instancia (literal o variable)", linea);
+                }
+                if(((Instancia) p).getTipo() != this) {
+                    p = p.generarCodigoMetodo(Metodos.CAST, new Objeto[]{this}, linea);
+           }
             Objeto cociente = instancia.generarCodigoMetodo(Metodos.DIVID, param, linea); // $t0 = a / b;
             Objeto mult = cociente.generarCodigoMetodo(Metodos.MULT, param, linea); // $t1 = $t0 * b;
             return instancia.generarCodigoMetodo(Metodos.RESTA, new Objeto[]{mult}, linea); // $t2 = a - $t1
@@ -147,7 +143,6 @@ public class TipoInt extends Tipo{  //una única instancia de objeto entero en t
             case Metodos.MAYOR:
             case Metodos.MAYORIG:
                 p = param[0];
-
                 if(!(p instanceof Instancia)) {
                     throw new ParseException(p.getNombre() + " no es una instancia (literal o variable)", linea);
                 }
@@ -155,8 +150,6 @@ public class TipoInt extends Tipo{  //una única instancia de objeto entero en t
                 if(par.getTipo() != this && par.getTipo() != TipoReal.instancia) {
                     throw new ParseException("Tipo inválido para comparar con " + getNombre(), linea);
                 }
-            //hasta aqui esta copiado de github porque no lo teniamos
-
             v=new Variable(newNomObj(), instancia.getBloque(), false, TipoBool.instancia);
             et1=newEtiq();
             PLXC.out.println(v.getIDC()+" = 1;");
@@ -188,32 +181,54 @@ public class TipoInt extends Tipo{  //una única instancia de objeto entero en t
                 PLXC.out.println("if ("+instancia.getIDC()+" < "+par.getIDC() + ") goto " + et1 + ";");
                 break; 
             }
-            PLXC.out.println(v.getIDC()+" = 0 ;");
-            PLXC.out.println(et1 + ":");
+        PLXC.out.println(v.getIDC()+" = 0 ;");
+        PLXC.out.println(et1 + ":");
+        return v;
 
-            return v;
-
-            case Metodos.OPUESTO:
+        case Metodos.OPUESTO:
             v=new Variable(newNomObj(), instancia.getBloque(),false,this);
             PLXC.out.println(v.getIDC()+" = 0 - "+instancia.getIDC()+";");
             return v;
 
-            case Metodos.SIGUIENTE:
+        case Metodos.SIGUIENTE:
             PLXC.out.println(instancia.getIDC()+" = "+instancia.getIDC()+";");
             return instancia;
 
-            case Metodos.ANTERIOR:
+        case Metodos.ANTERIOR:
             PLXC.out.println(instancia.getIDC()+" = "+instancia.getIDC()+";");
             return instancia;
 
+        case Metodos.NLOG:                 
+            v=new Variable(newNomObj(), instancia.getBloque(), false, TipoBool.instancia);
+            et1=newEtiq();
+            PLXC.out.println(v.getIDC()+" = 1;");                
+            PLXC.out.println("if ("+instancia.getIDC()+" == 0) goto "+et1+";"); 
+            PLXC.out.println(v.getIDC()+" = 0;"); //linea 107
+            PLXC.out.println(et1 + ": ");
+            return v;
+        case Metodos.YLOG:    
+        case Metodos.OLOG:
+            Etiqueta et;
+            if((param==null) || (param.length!=1) /*|| (!(param[0] instanceof Tipo))*/)  {
+                throw new ParseException("La operacion "+metodo+ "necesita una etiqueta como parametro",linea);
+            }
+            et=(Etiqueta) param[0];
+
+            v=new Variable(newNomObj(), instancia.getBloque(), false, TipoBool.instancia);
+            PLXC.out.println(v.getIDC()+" = "+instancia.getIDC()+";");
+
+            switch (metodo) {
+                case Metodos.YLOG: 
+                    PLXC.out.println("if ("+instancia.getIDC()+" ==0) goto "+et.getIDC()+";"); 
+                    break;
+                case Metodos.OLOG: 
+                    PLXC.out.println("if ("+instancia.getIDC()+" ==1) goto "+et.getIDC()+";"); 
+                    break;//linea 128
+            }
+            return v;
         default:
         throw new ParseException("Operacion ("+metodo+")"+" no permitido para " + getNombre(), linea);    
-        }
-        
+        }        
         return null;
         }
-      //en la linea de cast, que no se ve en la foto al final, mete como parametro, metodos.CAST ,new Objeto[] {this}
-            // en la linea swich case de predefinidos , el ultimo parámetro: (tipo) param[0]
-
-    // carlos tiene dos fotos. martes 10 dic
 }

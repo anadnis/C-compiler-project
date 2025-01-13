@@ -1,5 +1,3 @@
-
-
 public class CortoCircuito extends Instruccion {
     private Instruccion a, b;
     private String metodo;
@@ -17,7 +15,7 @@ public class CortoCircuito extends Instruccion {
 
         Etiqueta etq = new Etiqueta(Objeto.newEtiq(), objA.getBloque()); // L
         
-        Objeto result = objA.generarCodigoMetodo(metodo, new Objeto[]{etq}, getLinea()); // ($t1 = $t0; if($t0 == 0) goto L) -> $t1
+        Objeto result = objA.generarCodigoMetodo(metodo, new Objeto[]{etq}, getLinea()); // ($t1 = $t0; if($t0 == 0) goto Letq) -> $t1
 
         Objeto objB = b.generarCodigo(); // -> $t2
 

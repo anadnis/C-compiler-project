@@ -16,10 +16,10 @@ public class SentWHILE extends Instruccion{
 
         PLXC.out.println(etWhile+":");
         Objeto c=cond.generarCodigo();
+
         if(!(c instanceof Instancia)){
             throw new ParseException("La expresión del while debe ser una instancia (literal o variable)", getLinea());
         }
-
         Instancia iCond=(Instancia) c;
 
         if(iCond.getTipo() != TipoBool.instancia){

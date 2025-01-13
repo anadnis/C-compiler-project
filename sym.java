@@ -6,52 +6,57 @@
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int CAST = 45;
-  public static final int MASMAS = 41;
-  public static final int MENOSMENOS = 42;
+  public static final int CAST = 50;
+  public static final int FORALL = 15;
+  public static final int MASMAS = 46;
+  public static final int MENOSMENOS = 47;
   public static final int AC = 8;
-  public static final int MULT = 28;
-  public static final int CHAR = 21;
-  public static final int OLOG = 38;
-  public static final int ENTERO = 22;
-  public static final int DIFERENTE = 36;
-  public static final int YLOG = 37;
-  public static final int INT = 19;
+  public static final int MULT = 32;
+  public static final int CHAR = 20;
+  public static final int OLOG = 42;
+  public static final int ENTERO = 25;
+  public static final int DIFERENTE = 40;
+  public static final int YLOG = 41;
+  public static final int INT = 18;
   public static final int FOR = 14;
   public static final int C_LLAVE = 3;
   public static final int A_LLAVE = 2;
   public static final int CP = 6;
-  public static final int IGUAL = 35;
-  public static final int CARACTER = 23;
-  public static final int ASIGNA = 30;
+  public static final int IGUAL = 39;
+  public static final int CARACTER = 26;
+  public static final int BOOL = 27;
+  public static final int ASIGNA = 34;
   public static final int CC = 9;
   public static final int IF = 10;
   public static final int EOF = 0;
-  public static final int ADMIR = 39;
+  public static final int BOOLEAN = 21;
+  public static final int ADMIR = 43;
   public static final int error = 1;
   public static final int COMA = 7;
-  public static final int MENOS = 27;
-  public static final int MENOR = 31;
-  public static final int IDENT = 25;
-  public static final int MENOSUNARIO = 40;
+  public static final int MENOS = 31;
+  public static final int MENOR = 35;
+  public static final int IDENT = 29;
+  public static final int MENOSUNARIO = 45;
   public static final int PCOMA = 4;
-  public static final int REAL = 24;
-  public static final int MAYOR = 33;
-  public static final int PORCENT = 43;
+  public static final int FROM = 22;
+  public static final int MAYOR = 37;
+  public static final int REAL = 28;
+  public static final int PORCENT = 48;
   public static final int ELSE = 11;
-  public static final int MAYORIG = 34;
-  public static final int TO = 16;
+  public static final int MAYORIG = 38;
+  public static final int TO = 23;
   public static final int WHILE = 12;
-  public static final int FLOAT = 20;
-  public static final int MENORIG = 32;
-  public static final int DIVID = 29;
-  public static final int VIRGU = 44;
+  public static final int IMPLI = 44;
+  public static final int FLOAT = 19;
+  public static final int MENORIG = 36;
+  public static final int DIVID = 33;
+  public static final int VIRGU = 49;
   public static final int DOWNTO = 17;
   public static final int AP = 5;
-  public static final int PRINT = 15;
+  public static final int PRINT = 16;
   public static final int DO = 13;
-  public static final int STEP = 18;
-  public static final int MAS = 26;
+  public static final int STEP = 24;
+  public static final int MAS = 30;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -68,15 +73,19 @@ public class sym {
   "WHILE",
   "DO",
   "FOR",
+  "FORALL",
   "PRINT",
-  "TO",
   "DOWNTO",
-  "STEP",
   "INT",
   "FLOAT",
   "CHAR",
+  "BOOLEAN",
+  "FROM",
+  "TO",
+  "STEP",
   "ENTERO",
   "CARACTER",
+  "BOOL",
   "REAL",
   "IDENT",
   "MAS",
@@ -93,6 +102,7 @@ public class sym {
   "YLOG",
   "OLOG",
   "ADMIR",
+  "IMPLI",
   "MENOSUNARIO",
   "MASMAS",
   "MENOSMENOS",

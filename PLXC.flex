@@ -46,6 +46,8 @@ IDENT = [a-zA-Z]+[0-9]*
 "==" { return new Symbol(sym.IGUAL); }
 "!=" { return new Symbol(sym.DIFERENTE); }
 
+"-->"   { return new Symbol(sym.IMPLI); }
+
 "+"  { return new Symbol(sym.MAS); }
 "-"  { return new Symbol(sym.MENOS); }
 "*"  { return new Symbol(sym.MULT); }
@@ -64,10 +66,18 @@ while  { return new Symbol(sym.WHILE); }
 for    { return new Symbol(sym.FOR); }
 if     { return new Symbol(sym.IF); }
 else   { return new Symbol(sym.ELSE); }
+forall { return new Symbol(sym.FORALL);}
+to     { return new Symbol(sym.TO);}
+from   { return new Symbol(sym.FROM);}
+step  { return new Symbol(sym.STEP);}
 
 int   { return new Symbol(sym.INT); }
 char  { return new Symbol(sym.CHAR); }
 float { return new Symbol(sym.FLOAT); }
+boolean { return new Symbol(sym.BOOLEAN); }
+
+true   { return new Symbol(sym.BOOL, Integer.valueOf(1)); }
+false  { return new Symbol(sym.BOOL, Integer.valueOf(0)); }
 
 {ENTERO_DEC} { return new Symbol(sym.ENTERO, Integer.valueOf(yytext())); }
 {ENTERO_OCT} { 
@@ -79,7 +89,7 @@ float { return new Symbol(sym.FLOAT); }
     return new Symbol(sym.ENTERO, Integer.valueOf(s, 16));
 }
 
-{REAL} { return new Symbol(sym.REAL, Float.valueOf(yytext())); }
+{REAL} { return new Symbol(sym.REAL, Double.valueOf(yytext())); }
 
 \'\\n\' {
     return new Symbol(sym.CARACTER, Integer.valueOf(Character.codePointAt("\n", 0)));

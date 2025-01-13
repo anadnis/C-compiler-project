@@ -7,7 +7,7 @@ public class ExpLiteral extends Instruccion {
 	}
 	
 	@Override
-	public Objeto generarCodigo() throws Exception {
+	public Objeto generarCodigo() throws  Exception {
 		return l.generarCodigoMetodo(Metodos.CONSTLITERAL, null, getLinea());
 	}
 }

@@ -21,7 +21,7 @@ public Objeto generarCodigo() throws Exception{
     }
 
     Instancia iCond=(Instancia) c;
- 
+    
     if(iCond.getTipo() != TipoBool.instancia){
         iCond=(Instancia) iCond.generarCodigoMetodo(Metodos.CAST, new Objeto[]{TipoBool.instancia}, getLinea());
     }

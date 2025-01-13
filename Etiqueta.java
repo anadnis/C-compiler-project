@@ -31,11 +31,6 @@ public class Etiqueta extends Objeto{
 
         return null;
     }
-
-
-
-
-
 }
 
 

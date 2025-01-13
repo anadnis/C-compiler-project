@@ -1,0 +1,29 @@
+x$0 = 0;
+L0:
+$t0$0 = 2;
+$t1$0 = 2;
+$t5$0 = x$0 / $t1$0;
+$t6$0 = $t0$0 * $t5$0;
+$t7$0 = x$0 - $t6$0;
+$t2$0 = 0;
+$t8$0 = 1;
+if ($t7$0 == $t2$0) goto L1;
+$t8$0 = 0 ;
+L1:
+$t9$0 = $t8$0;
+if ($t8$0 ==0) goto L2;
+x$0 = x$0 + 2;
+if (x$0 <= 10) goto L0;
+goto L3;
+L2:
+// Código para manejar el caso en que la condición sea falsa
+L3:
+// Código para manejar el caso en que la condición sea verdadera para todos los valores
+if ($t9$0 == 0) goto L4;
+$t3$1 = 1;
+print $t3$1;
+goto L5;
+L4:
+L5:
+$t4$0 = 0;
+print $t4$0;
